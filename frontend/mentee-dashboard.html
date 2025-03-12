@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentee Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 24px;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .dashboard-title {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .card {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn, .btn-outline {
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn {
+            background-color: #2563eb;
+            color: white;
+        }
+
+        .btn-outline {
+            border: 1px solid #2563eb;
+            color: #2563eb;
+            background: transparent;
+        }
+
+        .mentor-info {
+            padding: 12px;
+            background: #f9fafb;
+            border-radius: 6px;
+            margin-top: 8px;
+        }
+
+        .mentor-rating {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .star {
+            color: #fbbf24;
+        }
+
+        .progress-tracker {
+            margin-top: 16px;
+        }
+
+        .progress-bar {
+            background-color: #2563eb;
+            height: 10px;
+            border-radius: 4px;
+            width: 70%; /* Example progress */
+        }
+
+        .achievements {
+            margin-top: 24px;
+        }
+
+        .achievement-item {
+            padding: 8px;
+            background-color: #e0f2fe;
+            margin-bottom: 8px;
+            border-radius: 4px;
+        }
+
+        .upcoming-meetings, .recent-messages {
+            margin-top: 24px;
+        }
+
+        .meeting-item, .message-item {
+            padding: 12px;
+            background-color: #f9fafb;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .notification {
+            background-color: #fef3c7;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .contact-mentor {
+            margin-top: 16px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1 class="dashboard-title">Mentee Dashboard</h1>
+
+        <div class="dashboard-grid">
+
+            <!-- Main Content Area -->
+            <div>
+                <!-- Notifications -->
+                <div class="card notification">
+                    <strong>Notice:</strong> Your mentor has scheduled a meeting for tomorrow at 10:00 AM.
+                </div>
+
+                <!-- Mentor Information -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Your Mentor</h2>
+                        <button class="btn-outline">View Profile</button>
+                    </div>
+                    <div class="mentor-info">
+                        <h3>Dr. Alex Johnson</h3>
+                        <div class="mentor-rating">
+                            <span class="star">⭐</span><span>4.8 (32 reviews)</span>
+                        </div>
+                        <div class="contact-mentor">
+                            <button class="btn">Message Mentor</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Tracker -->
+                <div class="card progress-tracker">
+                    <h2>Progress Tracker</h2>
+                    <div class="progress-bar"></div>
+                    <p>70% Completed</p>
+                </div>
+
+                <!-- Achievements -->
+                <div class="card achievements">
+                    <h2>Your Achievements</h2>
+                    <div class="achievement-item">🏆 Best Project Award</div>
+                    <div class="achievement-item">📜 Completed JavaScript Workshop</div>
+                    <div class="achievement-item">🎓 Semester GPA: 9.2</div>
+                </div>
+            </div>
+
+            <!-- Side Panel -->
+            <div>
+                <!-- Upcoming Meetings -->
+                <div class="card upcoming-meetings">
+                    <div class="card-header">
+                        <h2>Upcoming Meetings</h2>
+                        <button class="btn-outline">+ Schedule</button>
+                    </div>
+                    <div class="meeting-item">Mentorship Session - Tomorrow at 10:00 AM</div>
+                    <div class="meeting-item">Project Review - Next Monday at 2:00 PM</div>
+                </div>
+
+                <!-- Recent Messages -->
+                <div class="card recent-messages">
+                    <div class="card-header">
+                        <h2>Recent Messages</h2>
+                        <button class="btn-outline">View All</button>
+                    </div>
+                    <div class="message-item">Mentor: Please prepare your project report for the next meeting.</div>
+                    <div class="message-item">Mentor: Great progress on your assignment!</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

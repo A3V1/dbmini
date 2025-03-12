@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin: 20px;
+        }
+
+        .profile-box {
+            background: #0d47a1;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .profile-box:hover {
+            transform: scale(1.02);
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            border: 3px solid orange;
+            transition: transform 0.3s;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.05);
+        }
+
+        .header {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: orange;
+        }
+
+        .info {
+            font-size: 18px;
+            margin-bottom: 12px;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        .section {
+            margin-top: 25px;
+            padding: 15px;
+            background: #1e3c72;
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .section h3 {
+            margin: 0 0 10px;
+            padding-bottom: 5px;
+            color: orange;
+            font-size: 20px;
+            border-bottom: 1px solid orange;
+        }
+
+        .section ul {
+            list-style-type: square;
+            margin: 0;
+            padding: 0;
+            padding-left: 20px;
+        }
+
+        .section li {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .btn {
+            background: orange;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            color: white;
+            width: 100%;
+            margin-top: 25px;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .btn:hover {
+            background: darkorange;
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile-box">
+            <img src="https://www.strasys.uk/wp-content/uploads/2022/02/Depositphotos_484354208_S.jpg" alt="Profile Picture" class="profile-image">
+            <div class="header">Student Profile</div>
+            
+            <div class="info"><strong>Name:</strong> Alex Johnson</div>
+            <div class="info"><strong>Email:</strong> alex.johnson@email.com</div>
+            <div class="info"><strong>Role:</strong> Mentee</div>
+            
+            <div class="section">
+                <h3>Achievements</h3>
+                <ul>
+                    <li>Completed Python Basics Course</li>
+                    <li>Won Hackathon 2023</li>
+                    <li>Certified in Web Development</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h3>Upcoming Meetings</h3>
+                <ul>
+                    <li>Meeting with Mentor - March 15, 2025</li>
+                    <li>Project Discussion - March 20, 2025</li>
+                    <li>Monthly Review - March 25, 2025</li>
+                </ul>
+            </div>
+            
+            <button class="btn">Edit Profile</button>
+        </div>
+    </div>
+</body>
+</html>

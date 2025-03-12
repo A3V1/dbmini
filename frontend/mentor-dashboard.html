@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 24px;
+            color: #1f2937;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .dashboard-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2563eb;
+            margin-bottom: 16px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .card {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        .card h2 {
+            margin: 0;
+            margin-bottom: 8px;
+            font-size: 20px;
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .summary-card i {
+            font-size: 30px;
+            margin-right: 8px;
+        }
+
+        .summary-card {
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+        }
+
+        .blue { background-color: #2563eb; }
+        .green { background-color: #059669; }
+        .cyan { background-color: #06b6d4; }
+        .yellow { background-color: #facc15; }
+
+        .table-container {
+            margin-top: 32px;
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background-color: #f0f4f8;
+        }
+
+        .btn-outline {
+            border: 1px solid #2563eb;
+            color: #2563eb;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background-color: #2563eb;
+            color: white;
+        }
+
+        .small-text {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="header-bar">
+            <h1 class="dashboard-title">Mentor Dashboard</h1>
+            <button class="btn-outline">+ Add New Mentee</button>
+        </div>
+        
+        <div class="dashboard-grid">
+            <div class="card blue summary-card">
+                <div><i>👥</i><h2>Total Mentees</h2></div>
+                <p>12</p>
+            </div>
+            <div class="card green summary-card">
+                <div><i>📅</i><h2>Today's Meetings</h2></div>
+                <p>3</p>
+            </div>
+            <div class="card cyan summary-card">
+                <div><i>✉️</i><h2>Unread Messages</h2></div>
+                <p>5</p>
+            </div>
+            <div class="card yellow summary-card">
+                <div><i>✅</i><h2>Pending Tasks</h2></div>
+                <p>4</p>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <h2>My Mentees</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Progress</th>
+                        <th>Last Meeting</th>
+                        <th>Next Meeting</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John Doe</td>
+                        <td>85%</td>
+                        <td>2025-03-10</td>
+                        <td>2025-03-15</td>
+                        <td><button class="btn-outline">View</button></td>
+                    </tr>
+                    <tr>
+                        <td>Jane Smith</td>
+                        <td>90%</td>
+                        <td>2025-03-09</td>
+                        <td>2025-03-16</td>
+                        <td><button class="btn-outline">View</button></td>
+                    </tr>
+                    <tr>
+                        <td>Alan Turing</td>
+                        <td>78%</td>
+                        <td>2025-03-08</td>
+                        <td>2025-03-18</td>
+                        <td><button class="btn-outline">View</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="dashboard-grid" style="grid-template-columns: 1fr 1fr; margin-top: 32px;">
+            <div class="card">
+                <div class="header-bar">
+                    <h2>Upcoming Meetings</h2>
+                    <button class="btn-outline">+ Schedule Meeting</button>
+                </div>
+                <ul>
+                    <li>John Doe - 2025-03-15 at 10:00 AM</li>
+                    <li>Jane Smith - 2025-03-16 at 2:00 PM</li>
+                    <li>Alan Turing - 2025-03-18 at 11:30 AM</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="header-bar">
+                    <h2>Recent Messages</h2>
+                    <button class="btn-outline">View All</button>
+                </div>
+                <ul>
+                    <li>John: "Need help with the project..."</li>
+                    <li>Jane: "Thank you for the feedback..."</li>
+                    <li>Alan: "Could we reschedule our meeting?"</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

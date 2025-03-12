@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 24px;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .dashboard-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 24px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .card {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .summary-card {
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .blue { background-color: #2563eb; }
+        .green { background-color: #059669; }
+        .cyan { background-color: #06b6d4; }
+        .yellow { background-color: #facc15; }
+        .red { background-color: #dc2626; }
+
+        .table-container {
+            margin-top: 24px;
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background-color: #f3f4f6;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
+            background-color: #2563eb;
+        }
+
+        .btn-danger {
+            background-color: #dc2626;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #2563eb;
+            color: #2563eb;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1 class="dashboard-title">Admin Dashboard</h1>
+        
+        <!-- Overview Cards -->
+        <div class="dashboard-grid">
+            <div class="card blue summary-card">
+                <div>
+                    <h2>Total Users</h2>
+                    <p>50</p>
+                </div>
+            </div>
+            <div class="card green summary-card">
+                <div>
+                    <h2>Mentors</h2>
+                    <p>10</p>
+                </div>
+            </div>
+            <div class="card cyan summary-card">
+                <div>
+                    <h2>Mentees</h2>
+                    <p>40</p>
+                </div>
+            </div>
+            <div class="card yellow summary-card">
+                <div>
+                    <h2>Meetings This Week</h2>
+                    <p>25</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activities -->
+        <div class="table-container">
+            <h2>Recent Activities</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Activity</th>
+                        <th>Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John Doe (Mentor)</td>
+                        <td>Created a new Meeting</td>
+                        <td>Today, 10:30 AM</td>
+                    </tr>
+                    <tr>
+                        <td>Alice Smith (Mentee)</td>
+                        <td>Submitted Feedback</td>
+                        <td>Today, 9:45 AM</td>
+                    </tr>
+                    <tr>
+                        <td>Admin</td>
+                        <td>Added New User</td>
+                        <td>Yesterday, 3:20 PM</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- User Management Section -->
+        <div class="table-container">
+            <h2>User Management</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Michael Johnson</td>
+                        <td>Mentor</td>
+                        <td>mjohnson@college.edu</td>
+                        <td>
+                            <button class="btn">Edit</button>
+                            <button class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Sarah Lee</td>
+                        <td>Mentee</td>
+                        <td>sarahl@college.edu</td>
+                        <td>
+                            <button class="btn">Edit</button>
+                            <button class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Admin</td>
+                        <td>Administrator</td>
+                        <td>admin@college.edu</td>
+                        <td>
+                            <button class="btn">Edit</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Announcements Section -->
+        <div class="table-container">
+            <h2>Announcements</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Content</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>System Maintenance</td>
+                        <td>Scheduled maintenance on March 15th.</td>
+                        <td>March 10, 2025</td>
+                    </tr>
+                    <tr>
+                        <td>New Feature Update</td>
+                        <td>Mentorship system now supports file uploads.</td>
+                        <td>March 8, 2025</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

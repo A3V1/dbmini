@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule a Meeting</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px;
+        }
+        .form-box {
+            background: #0d47a1;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .form-box:hover {
+            transform: scale(1.02);
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.4);
+        }
+        .header {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: orange;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 6px;
+            color: orange;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            margin-top: 4px;
+            background: #1e3c72;
+            color: white;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            background: #2a5298;
+            border: 1px solid orange;
+        }
+        .btn {
+            background: orange;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            color: white;
+            width: 100%;
+            margin-top: 20px;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .btn:hover {
+            background: darkorange;
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-box">
+            <div class="header">Schedule a Meeting</div>
+            <form>
+                <div class="form-group">
+                    <label for="mentor">Select Mentor:</label>
+                    <select id="mentor" name="mentor" required>
+                        <option value="" disabled selected>Select a Mentor</option>
+                        <option value="mentor1">Dr. Rajesh Singh</option>
+                        <option value="mentor2">Prof. Anita Deshmukh</option>
+                        <option value="mentor3">Mr. Ramesh Gupta</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="title">Meeting Title:</label>
+                    <input type="text" id="title" name="title" placeholder="Enter Meeting Title" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" rows="4" placeholder="Enter Meeting Description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="datetime">Scheduled Date & Time:</label>
+                    <input type="datetime-local" id="datetime" name="datetime" required>
+                </div>
+                <div class="form-group">
+                    <label for="duration">Duration (minutes):</label>
+                    <input type="number" id="duration" name="duration" placeholder="Enter Duration in Minutes" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="mode">Meeting Mode:</label>
+                    <select id="mode" name="mode" required>
+                        <option value="" disabled selected>Select Mode</option>
+                        <option value="online">Online</option>
+                        <option value="offline">Offline</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="status">Meeting Status:</label>
+                    <select id="status" name="status" required>
+                        <option value="" disabled selected>Select Status</option>
+                        <option value="scheduled">Scheduled</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn">Schedule Meeting</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
