@@ -8,21 +8,22 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f4f8;
+            background-color: var(--background-color);
             margin: 0;
-            padding: 24px;
-            color: #1f2937;
+            padding: 0;
+            color: var(--text-color);
         }
 
         .dashboard-container {
             max-width: 1400px;
             margin: auto;
+            padding: 24px;
         }
 
         .dashboard-title {
             font-size: 32px;
             font-weight: bold;
-            color: #2563eb;
+            color: var(--primary-color);
             margin-bottom: 16px;
         }
 
@@ -34,29 +35,39 @@
         }
 
         .card {
-            background: white;
+            background: var(--white);
             padding: 16px;
             border-radius: 8px;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
             text-align: center;
             position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 3px solid var(--primary-color);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         }
 
         .card h2 {
             margin: 0;
             margin-bottom: 8px;
             font-size: 20px;
+            color: var(--white);
         }
 
         .card p {
             margin: 0;
             font-size: 18px;
             font-weight: bold;
+            color: var(--white);
         }
 
         .summary-card i {
             font-size: 30px;
             margin-right: 8px;
+            color: var(--white);
         }
 
         .summary-card {
@@ -65,11 +76,12 @@
             align-items: center;
             justify-content: space-between;
             padding: 16px;
+            border-top: none;
         }
 
-        .blue { background-color: #2563eb; }
-        .green { background-color: #059669; }
-        .cyan { background-color: #06b6d4; }
+        .blue { background-color: var(--primary-color); }
+        .orange { background-color: var(--secondary-color); }
+        .cyan { background-color: var(--accent-color); }
         .yellow { background-color: #facc15; }
 
         .table-container {
@@ -78,6 +90,14 @@
             padding: 16px;
             border-radius: 8px;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            border-top: 3px solid var(--primary-color);
+        }
+        
+        .table-container h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 8px;
+            margin-top: 0;
         }
 
         table {
@@ -92,26 +112,36 @@
         }
 
         th {
-            background-color: #f0f4f8;
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: var(--blue-light);
+        }
+        
+        tr:hover {
+            background-color: var(--orange-light);
         }
 
         .btn-outline {
-            border: 1px solid #2563eb;
-            color: #2563eb;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
             padding: 6px 12px;
             border-radius: 4px;
             cursor: pointer;
             background: transparent;
+            transition: all 0.3s ease;
         }
 
         .btn-outline:hover {
-            background-color: #2563eb;
-            color: white;
+            background-color: var(--blue-light);
+            transform: translateY(-2px);
         }
 
         .small-text {
             font-size: 14px;
-            color: #6b7280;
+            color: var(--light-text);
         }
 
         .header-bar {
@@ -120,9 +150,88 @@
             align-items: center;
             margin-bottom: 16px;
         }
+        
+        .section-title {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 8px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 24px;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .feature-card .icon-lg {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            color: var(--secondary-color);
+        }
+        
+        .feature-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+        
+        .feature-card p {
+            color: var(--light-text);
+            margin-bottom: 16px;
+            font-weight: normal;
+            font-size: 1rem;
+        }
+        
+        .feature-card .btn {
+            margin-top: auto;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        li {
+            padding: 10px;
+            border-bottom: 1px solid var(--border-color);
+            text-align: left;
+        }
+        
+        li:last-child {
+            border-bottom: none;
+        }
+        
+        li:hover {
+            background-color: var(--orange-light);
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .dashboard-grid, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Include Navigation -->
+    <div id="nav-placeholder"></div>
+    
     <div class="dashboard-container">
         <div class="header-bar">
             <h1 class="dashboard-title">Mentor Dashboard</h1>
@@ -134,7 +243,7 @@
                 <div><i>👥</i><h2>Total Mentees</h2></div>
                 <p>12</p>
             </div>
-            <div class="card green summary-card">
+            <div class="card orange summary-card">
                 <div><i>📅</i><h2>Today's Meetings</h2></div>
                 <p>3</p>
             </div>
@@ -142,7 +251,7 @@
                 <div><i>✉️</i><h2>Unread Messages</h2></div>
                 <p>5</p>
             </div>
-            <div class="card yellow summary-card">
+            <div class="card orange summary-card">
                 <div><i>✅</i><h2>Pending Tasks</h2></div>
                 <p>4</p>
             </div>
@@ -189,7 +298,7 @@
         <div class="dashboard-grid" style="grid-template-columns: 1fr 1fr; margin-top: 32px;">
             <div class="card">
                 <div class="header-bar">
-                    <h2>Upcoming Meetings</h2>
+                    <h2 style="color: var(--primary-color);">Upcoming Meetings</h2>
                     <button class="btn-outline">+ Schedule Meeting</button>
                 </div>
                 <ul>
@@ -201,7 +310,7 @@
 
             <div class="card">
                 <div class="header-bar">
-                    <h2>Recent Messages</h2>
+                    <h2 style="color: var(--primary-color);">Recent Messages</h2>
                     <button class="btn-outline">View All</button>
                 </div>
                 <ul>
@@ -211,6 +320,57 @@
                 </ul>
             </div>
         </div>
+
+        <div class="section mt-4">
+            <h2 class="section-title">Common Features</h2>
+            <div class="grid grid-4">
+                <div class="card feature-card" data-feature="meeting_schedule">
+                    <div>
+                        <i class="fas fa-calendar-alt icon-lg"></i>
+                        <h3>Meeting Schedule</h3>
+                        <p>View and manage your meetings</p>
+                    </div>
+                    <a href="meeting-schedule.html" class="btn btn-primary">Access</a>
+                </div>
+                
+                <div class="card feature-card" data-feature="student_profile">
+                    <div>
+                        <i class="fas fa-user-graduate icon-lg"></i>
+                        <h3>Student Profiles</h3>
+                        <p>View detailed mentee information</p>
+                    </div>
+                    <a href="student-profile.html" class="btn btn-primary">Access</a>
+                </div>
+                
+                <div class="card feature-card" data-feature="communication_hub">
+                    <div>
+                        <i class="fas fa-comments icon-lg"></i>
+                        <h3>Communication Hub</h3>
+                        <p>Messages, alerts, and broadcasts</p>
+                    </div>
+                    <a href="communication-hub.html" class="btn btn-primary">Access</a>
+                </div>
+                
+                <div class="card feature-card" data-feature="achievements">
+                    <div>
+                        <i class="fas fa-award icon-lg"></i>
+                        <h3>Achievements</h3>
+                        <p>Award badges to your mentees</p>
+                    </div>
+                    <a href="achievements.html" class="btn btn-primary">Access</a>
+                </div>
+            </div>
+        </div>
     </div>
+    
+    <script src="js/main.js"></script>
+    <script>
+        // Load navigation
+        fetch('components/navigation.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+            });
+    </script>
 </body>
 </html>

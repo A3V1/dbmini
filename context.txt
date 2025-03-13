@@ -1,0 +1,238 @@
+**NEW TABLES AFTER NORMALISATION**
+
+show tables;
++------------------+
+| Tables_in_dbmm   |
++------------------+
+| achievement      |
+| activity_log     |
+| admin            |
+| communication    |
+| emergency_alerts |
+| mentee           |
+| mentee_academics |
+| mentor           |
+| user             |
++------------------+
+9 rows in set (0.00 sec)
+
+1. Populating USER Table (Admins, Mentors, Mentees)
+INSERT INTO USERS (official_mail_id, prn_id, password, phone_num, role, calendar_id) VALUES
+('admin1@college.edu', 'PRN001', 'pass123', '9876543210', 'admin', 'calendar001'),
+('admin2@college.edu', 'PRN002', 'pass456', '9876543211', 'admin', 'calendar002'),
+('mentor1@college.edu', 'PRN003', 'pass789', '9876543212', 'mentor', 'calendar003'),
+('mentor2@college.edu', 'PRN004', 'pass012', '9876543213', 'mentor', 'calendar004'),
+('mentor3@college.edu', 'PRN005', 'pass345', '9876543214', 'mentor', 'calendar005'),
+('mentor4@college.edu', 'PRN006', 'pass678', '9876543215', 'mentor', 'calendar006'),
+('mentor5@college.edu', 'PRN007', 'pass901', '9876543216', 'mentor', 'calendar007');
+
+Adding 20 Mentees
+INSERT INTO USERS (official_mail_id, prn_id, password, phone_num, role, calendar_id) VALUES
+('mentee1@college.edu', 'PRN008', 'pass111', '9876543217', 'mentee', 'calendar008'),
+('mentee2@college.edu', 'PRN009', 'pass222', '9876543218', 'mentee', 'calendar009'),
+('mentee3@college.edu', 'PRN010', 'pass333', '9876543219', 'mentee', 'calendar010'),
+('mentee4@college.edu', 'PRN011', 'pass444', '9876543220', 'mentee', 'calendar011'),
+('mentee5@college.edu', 'PRN012', 'pass555', '9876543221', 'mentee', 'calendar012'),
+('mentee6@college.edu', 'PRN013', 'pass666', '9876543222', 'mentee', 'calendar013'),
+('mentee7@college.edu', 'PRN014', 'pass777', '9876543223', 'mentee', 'calendar014'),
+('mentee8@college.edu', 'PRN015', 'pass888', '9876543224', 'mentee', 'calendar015'),
+('mentee9@college.edu', 'PRN016', 'pass999', '9876543225', 'mentee', 'calendar016'),
+('mentee10@college.edu', 'PRN017', 'pass000', '9876543226', 'mentee', 'calendar017'),
+('mentee11@college.edu', 'PRN018', 'pass112', '9876543227', 'mentee', 'calendar018'),
+('mentee12@college.edu', 'PRN019', 'pass223', '9876543228', 'mentee', 'calendar019'),
+('mentee13@college.edu', 'PRN020', 'pass334', '9876543229', 'mentee', 'calendar020'),
+('mentee14@college.edu', 'PRN021', 'pass445', '9876543230', 'mentee', 'calendar021'),
+('mentee15@college.edu', 'PRN022', 'pass556', '9876543231', 'mentee', 'calendar022'),
+('mentee16@college.edu', 'PRN023', 'pass667', '9876543232', 'mentee', 'calendar023'),
+('mentee17@college.edu', 'PRN024', 'pass778', '9876543233', 'mentee', 'calendar024'),
+('mentee18@college.edu', 'PRN025', 'pass889', '9876543234', 'mentee', 'calendar025'),
+('mentee19@college.edu', 'PRN026', 'pass990', '9876543235', 'mentee', 'calendar026'),
+('mentee20@college.edu', 'PRN027', 'pass101', '9876543236', 'mentee', 'calendar027');
+
+1. Populating MENTOR Table
+INSERT INTO MENTOR (mentor_id, unique_user_no, room_no, timetable, department, academic_background) VALUES
+(1, 3, 'Room A1', 'Mon-Wed: 10AM-1PM', 'Computer Science', 'PhD in Computer Science'),
+(2, 4, 'Room B2', 'Tue-Thu: 11AM-2PM', 'Mathematics', 'PhD in Applied Mathematics'),
+(3, 5, 'Room C3', 'Mon-Wed: 2PM-5PM', 'Physics', 'PhD in Theoretical Physics'),
+(4, 6, 'Room D4', 'Tue-Thu: 10AM-12PM', 'Chemistry', 'PhD in Organic Chemistry'),
+(5, 7, 'Room E5', 'Fri: 9AM-12PM', 'Biology', 'PhD in Microbiology');
+
+- - 3. Populating MENTEE Table
+INSERT INTO MENTEE (unique_user_no, mentor_id) VALUES
+(8, 1),
+(9, 1),
+(10, 1),
+(11, 2),
+(12, 2),
+(13, 3),
+(14, 3),
+(15, 4),
+(16, 4),
+(17, 5),
+(18, 5),
+(19, 1),
+(20, 2),
+(21, 3),
+(22, 4),
+(23, 5),
+(24, 1),
+(25, 2),
+(26, 3),
+(27, 4);
+
+- - 4. Populating MENTEE_ACADEMICS Table
+INSERT INTO MENTEE_ACADEMICS (mentee_id, course, year, attendance, academic_context, academic_background) VALUES
+(1, '[B.Sc](http://b.sc/). Computer Science', 1, 85.5, 'Good', 'Completed high school with distinction.'),
+(2, '[B.Sc](http://b.sc/). Computer Science', 2, 92.0, 'Excellent', 'Excelled in previous year with top grades.'),
+(3, '[B.Sc](http://b.sc/). Computer Science', 3, 70.0, 'Average', 'Struggling with core subjects, needs improvement.'),
+(4, '[B.Sc](http://b.sc/). Mathematics', 1, 75.0, 'Good', 'Strong understanding of basics.'),
+(5, '[B.Sc](http://b.sc/). Mathematics', 2, 60.0, 'Poor', 'Below average performance, requires guidance.'),
+(6, '[B.Sc](http://b.sc/). Physics', 1, 72.5, 'Average', 'Good understanding of theoretical concepts.'),
+(7, '[B.Sc](http://b.sc/). Physics', 2, 78.0, 'Good', 'Improving with practical knowledge.'),
+(8, '[B.Sc](http://b.sc/). Chemistry', 3, 91.0, 'Excellent', 'Exceptional performance in all areas.'),
+(9, '[B.Sc](http://b.sc/). Chemistry', 2, 83.0, 'Good', 'Understanding practical concepts well.'),
+(10, '[B.Sc](http://b.sc/). Biology', 1, 68.0, 'Average', 'Needs improvement in theoretical concepts.'),
+(11, '[B.Sc](http://b.sc/). Biology', 2, 80.5, 'Good', 'Steady progress with good practical skills.'),
+(12, '[B.Sc](http://b.sc/). Computer Science', 1, 94.0, 'Excellent', 'Outstanding performance in programming.'),
+(13, '[B.Sc](http://b.sc/). Mathematics', 3, 55.0, 'Poor', 'Poor performance, needs intensive tutoring.'),
+(14, '[B.Sc](http://b.sc/). Physics', 3, 82.0, 'Good', 'Strong analytical skills.'),
+(15, '[B.Sc](http://b.sc/). Chemistry', 1, 65.0, 'Average', 'Requires more focus on fundamentals.'),
+(16, '[B.Sc](http://b.sc/). Biology', 3, 79.0, 'Good', 'Solid performance, especially in lab work.'),
+(17, '[B.Sc](http://b.sc/). Computer Science', 2, 74.0, 'Average', 'Moderate progress, requires motivation.'),
+(18, '[B.Sc](http://b.sc/). Mathematics', 2, 77.0, 'Good', 'Consistent improvement.'),
+(19, '[B.Sc](http://b.sc/). Physics', 1, 90.0, 'Excellent', 'Highly proficient in all areas.'),
+(20, '[B.Sc](http://b.sc/). Chemistry', 3, 85.0, 'Good', 'Good theoretical knowledge and practical skills.');
+
+- - 5. Populating COMMUNICATION Table
+INSERT INTO COMMUNICATION (sender_id, receiver_id, message_content, message_status, attached_file, type) VALUES
+(1, 3, 'Meeting scheduled for Monday at 10 AM.', 'delivered', NULL, 'one-to-one'),
+(2, 4, 'Please share your progress report.', 'sent', NULL, 'one-to-one'),
+(3, 5, 'Feedback on the project: Great effort!', 'read', NULL, 'feedback'),
+(4, 6, 'You have been invited to the mentorship meeting.', 'delivered', NULL, 'broadcast'),
+(5, 7, 'Meeting request for discussion on academic issues.', 'sent', NULL, 'meeting_req'),
+(3, 1, 'Meeting notes attached.', 'read', 'notes.pdf', 'one-to-one'),
+(2, 5, 'Group discussion scheduled at 2 PM.', 'delivered', NULL, 'broadcast'),
+(1, 4, 'Please review the attached assignment.', 'sent', 'assignment.docx', 'one-to-one'),
+(5, 6, 'Request for meeting approval.', 'delivered', NULL, 'meeting_req'),
+(4, 3, 'Broadcast message: New guidelines released.', 'read', NULL, 'broadcast'),
+(7, 5, 'Feedback: Keep up the good work.', 'read', NULL, 'feedback'),
+(6, 2, 'Please upload your project files.', 'delivered', NULL, 'one-to-one'),
+(3, 1, 'Feedback on submission: Well done.', 'read', NULL, 'feedback'),
+(1, 2, 'Meeting request for semester planning.', 'sent', NULL, 'meeting_req'),
+(5, 4, 'Broadcast: Holiday announcement.', 'delivered', NULL, 'broadcast'),
+(7, 1, 'Meeting scheduled for next week.', 'read', NULL, 'one-to-one'),
+(2, 3, 'Feedback: Improve your attendance.', 'read', NULL, 'feedback'),
+(4, 6, 'Request for feedback submission.', 'delivered', NULL, 'feedback'),
+(3, 7, 'Meeting notes attached.', 'read', 'notes2.pdf', 'one-to-one'),
+(5, 2, 'Feedback: Continue your progress.', 'read', NULL, 'feedback');
+
+- - 6. Populating ACHIEVEMENT Table
+INSERT INTO ACHIEVEMENT (mentor_id, mentee_id, title, description, date_awarded, badge_icon) VALUES
+(1, 8, 'Best Project Award', 'Awarded for outstanding performance in the semester project.', '2025-03-01', 'project_badge.png'),
+(2, 9, 'Perfect Attendance', 'Awarded for maintaining 100% attendance throughout the semester.', '2025-03-02', 'attendance_badge.png'),
+(3, 10, 'Research Excellence', 'Awarded for exemplary research work in Physics.', '2025-03-03', 'research_badge.png'),
+(4, 11, 'Top Scorer', 'Awarded for securing the highest marks in Chemistry.', '2025-03-04', 'top_scorer_badge.png'),
+(5, 12, 'Community Service', 'Recognition for valuable contributions to community projects.', '2025-03-05', 'community_badge.png'),
+(1, 13, 'Coding Competition Winner', 'First place in inter-college coding competition.', '2025-03-06', 'coding_badge.png'),
+(2, 14, 'Mathematics Olympiad', 'Excellence in Mathematics problem-solving.', '2025-03-07', 'math_badge.png'),
+(3, 15, 'Physics Presentation Award', 'Best presentation at the annual Physics seminar.', '2025-03-08', 'presentation_badge.png'),
+(4, 16, 'Lab Assistant Award', 'Outstanding performance as a lab assistant.', '2025-03-09', 'lab_badge.png'),
+(5, 17, 'Science Fair Winner', 'Best innovative project at the Science Fair.', '2025-03-10', 'science_badge.png'),
+(1, 18, 'Hackathon Champion', 'Awarded for winning the college hackathon.', '2025-03-11', 'hackathon_badge.png'),
+(2, 19, 'Mathematics Prodigy', 'Awarded for exceptional problem-solving skills.', '2025-03-12', 'prodigy_badge.png'),
+(3, 20, 'Physics Research Award', 'Outstanding contribution to Physics research.', '2025-03-13', 'research_award.png'),
+(4, 21, 'Chemistry Quiz Winner', 'First place in the inter-college Chemistry quiz.', '2025-03-14', 'quiz_badge.png'),
+(5, 22, 'Biology Excellence', 'Recognition for academic excellence in Biology.', '2025-03-15', 'biology_badge.png');
+
+- - 7. Populating EMERGENCY_ALERTS Table
+INSERT INTO EMERGENCY_ALERTS (comm_id, alert_reason, alert_status) VALUES
+(1, 'Mentee reported feeling unwell during a meeting.', 'pending'),
+(2, 'Urgent academic assistance request from mentee.', 'resolved'),
+(3, 'Technical issue reported by mentor.', 'pending'),
+(4, 'Mentee reported cyberbullying incident.', 'resolved'),
+(5, 'Emergency meeting request for urgent guidance.', 'pending');
+
+- - 8. Populating ACTIVITY_LOG Table
+INSERT INTO ACTIVITY_LOG (user_id, log_time, activity, ip_address, last_login) VALUES
+(1, '2025-03-11 09:15:00', 'Logged in as Admin', '192.168.0.1', '2025-03-11 09:00:00'),
+(2, '2025-03-11 09:20:00', 'Logged in as Admin', '192.168.0.2', '2025-03-11 09:05:00'),
+(3, '2025-03-11 10:00:00', 'Logged in as Mentor', '192.168.0.3', '2025-03-11 09:45:00'),
+(4, '2025-03-11 10:05:00', 'Checked messages', '192.168.0.4', '2025-03-11 09:50:00'),
+(5, '2025-03-11 10:30:00', 'Scheduled a meeting', '192.168.0.5', '2025-03-11 10:15:00'),
+(6, '2025-03-11 10:35:00', 'Uploaded academic materials', '192.168.0.6', '2025-03-11 10:20:00'),
+(7, '2025-03-11 10:40:00', 'Logged out', '192.168.0.7', '2025-03-11 10:25:00'),
+(8, '2025-03-11 10:45:00', 'Sent a message to mentor', '192.168.0.8', '2025-03-11 10:30:00'),
+(9, '2025-03-11 11:00:00', 'Submitted academic report', '192.168.0.9', '2025-03-11 10:45:00'),
+(10, '2025-03-11 11:15:00', 'Joined a scheduled meeting', '192.168.0.10', '2025-03-11 11:00:00');
+
+- - 9. Populating ADMIN Table
+INSERT INTO ADMIN (admin_id, unique_user_no, privilege) VALUES
+(1, 1, 'Full Access'),
+(2, 2, 'Moderate Access');
+
+- **USERs Table:** 27 entries (2 Admins, 5 Mentors, 20 Mentees)
+- **ADMIN Table:** 2 entries
+- **MENTOR Table:** 5 entries
+- **MENTEE_ACADEMICS** : 20 entries
+- **MENTEE Table:** 20 entries
+- **ACHIEVEMENT Table:** 15 entries
+- **COMMUNICATION Table:** 20 entries (random messages, feedback, broadcasts)
+- **ACTIVITY_LOG Table:** 10 entries (login attempts, messages, achievements, etc.)
+- **EMERGENCY_ALERTS:  5**
+
+
+### Problem Statement for Mentor-Mentee Management System
+
+### **1. Introduction**
+
+In educational institutions, effective mentorship plays a crucial role in student development. A structured mentor-mentee management system is required to streamline communication, track academic progress, schedule meetings, monitor achievements, and ensure the smooth exchange of feedback and resources between mentors and mentees. Additionally, administrators need oversight over all activities for compliance and efficiency.
+
+### **2. Problem Definition**
+
+The current mentorship system faces the following challenges:
+
+1. **Lack of centralized communication** – Mentees and mentors use disparate communication channels, leading to inefficiencies.
+2. **Unstructured tracking of mentee progress** – Academic records, achievements, and attendance are not systematically recorded.
+3. **Difficulty in scheduling and tracking meetings** – Manual scheduling leads to conflicts and mismanagement of meeting agendas.
+4. **Ineffective feedback and emergency handling** – Mentees struggle to provide structured feedback and raise alerts when needed.
+5. **Unorganized mentor assignments** – Assigning and managing multiple mentor-mentee relationships is cumbersome.
+6. **Limited access to logs and records** – Admins lack real-time insights into system usage, communication, and user activity.
+
+### **3. Objectives**
+
+- Develop a database-driven system that streamlines mentor-mentee relationships.
+- Enable structured **one-to-one and broadcast communication** between mentors and mentees.
+- Maintain a **centralized record** of achievements, feedback, meetings, and emergency alerts.
+- Automate meeting scheduling, progress tracking, and **file management** (assignments, projects).
+- Provide **administrative oversight** for monitoring activities, logs, and announcements.
+
+### **4. System Features**
+
+1. **User Role Management**
+    - Each user is assigned one of the following roles: **Admin, Mentor, Mentee**.
+    - Admin has full control over system data and logs.
+2. **Mentor-Mentee Relationship**
+    - A mentor is assigned multiple mentees.
+    - A mentee is assigned to a single mentor.
+3. **Communication System**
+    - One-to-one chat and feedback exchange between mentor and mentee.
+    - Broadcast messages from mentors to multiple mentees.
+    - Emergency alerts sent by mentees to assigned mentors.
+4. **Meeting Management**
+    - Mentors and mentees schedule meetings with time, date, mode (offline/online), and status tracking.
+    - Meeting notes and agendas are stored in the system.
+5. **Achievement and Feedback System**
+    - Mentors award achievements to mentees.
+    - Mentees submit feedback for mentors.
+6. **File and Calendar Integration**
+    - Mentees upload assignments/projects for mentor review.
+    - Mentee calendars sync with the **College Portal** for submission deadlines.
+7. **Activity Logging and Oversight**
+    - Logs track logins, communications, and system interactions for every user.
+    - Admin has exclusive access to all logs.
+8. **System-wide Announcements**
+    - Admin can send global announcements visible to all users.
+
+### **5. Expected Outcome**
+
+A **centralized mentor-mentee management system** that improves mentorship efficiency, ensures seamless communication, and automates tracking of meetings, achievements, and feedback, leading to a **structured and efficient learning environment**.—

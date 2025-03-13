@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Admin Dashboard - Mentor-Mentee Portal</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Include Chart.js for analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f3f4f6;
+            background-color: var(--background-color);
             margin: 0;
-            padding: 24px;
+            padding: 0;
         }
 
         .dashboard-container {
@@ -22,6 +24,7 @@
             font-size: 28px;
             font-weight: bold;
             margin-bottom: 24px;
+            color: var(--primary-color);
         }
 
         .dashboard-grid {
@@ -36,6 +39,13 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 3px solid var(--primary-color);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         }
 
         .summary-card {
@@ -47,11 +57,26 @@
             border-radius: 8px;
         }
 
-        .blue { background-color: #2563eb; }
-        .green { background-color: #059669; }
-        .cyan { background-color: #06b6d4; }
-        .yellow { background-color: #facc15; }
-        .red { background-color: #dc2626; }
+        .blue { 
+            background-color: var(--primary-color);
+            border-top: none;
+        }
+        .orange { 
+            background-color: var(--secondary-color);
+            border-top: none;
+        }
+        .cyan { 
+            background-color: var(--accent-color);
+            border-top: none;
+        }
+        .yellow { 
+            background-color: #facc15;
+            border-top: none;
+        }
+        .red { 
+            background-color: var(--danger-color);
+            border-top: none;
+        }
 
         .table-container {
             margin-top: 24px;
@@ -73,7 +98,16 @@
         }
 
         th {
-            background-color: #f3f4f6;
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: var(--blue-light);
+        }
+        
+        tr:hover {
+            background-color: var(--orange-light);
         }
 
         .btn {
@@ -82,153 +116,567 @@
             border-radius: 4px;
             cursor: pointer;
             color: white;
-            background-color: #2563eb;
+            background-color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #153e75;
+            transform: translateY(-2px);
         }
 
         .btn-danger {
-            background-color: #dc2626;
+            background-color: var(--danger-color);
+        }
+        
+        .btn-danger:hover {
+            background-color: #b91c1c;
         }
 
         .btn-outline {
             background: transparent;
-            border: 1px solid #2563eb;
-            color: #2563eb;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
             padding: 6px 12px;
             cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--blue-light);
+            transform: translateY(-2px);
+        }
+
+        .stat-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+        }
+
+        .stat-content h3 {
+            margin: 0;
+            font-size: 0.875rem;
+            color: var(--light-text);
+        }
+
+        .stat-number {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .activity-log {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .activity-item {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.2s;
+        }
+
+        .activity-item:hover {
+            background-color: var(--orange-light);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-time {
+            font-size: 0.75rem;
+            color: var(--light-text);
+        }
+
+        .alerts-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .alert-item {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+        
+        .alert-item:hover {
+            background-color: var(--orange-light);
+        }
+
+        .alert-item:last-child {
+            border-bottom: none;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 8px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 24px;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .feature-card .icon-lg {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            color: var(--secondary-color);
+        }
+        
+        .feature-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+        
+        .feature-card p {
+            color: var(--light-text);
+            margin-bottom: 16px;
+        }
+        
+        .feature-card .btn {
+            margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="dashboard-container">
-        <h1 class="dashboard-title">Admin Dashboard</h1>
-        
-        <!-- Overview Cards -->
-        <div class="dashboard-grid">
-            <div class="card blue summary-card">
-                <div>
-                    <h2>Total Users</h2>
-                    <p>50</p>
+    <!-- Include Navigation -->
+    <div id="nav-placeholder"></div>
+
+    <div class="container">
+        <!-- Quick Stats -->
+        <div class="grid grid-4">
+            <div class="card blue">
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-content">
+                        <h3>Total Users</h3>
+                        <p class="stat-number" id="total-users">Loading...</p>
+                    </div>
                 </div>
             </div>
-            <div class="card green summary-card">
-                <div>
-                    <h2>Mentors</h2>
-                    <p>10</p>
+            <div class="card orange">
+                <div class="stat-card">
+                    <div class="stat-icon">👨‍🏫</div>
+                    <div class="stat-content">
+                        <h3>Active Mentors</h3>
+                        <p class="stat-number" id="active-mentors">Loading...</p>
+                    </div>
                 </div>
             </div>
-            <div class="card cyan summary-card">
-                <div>
-                    <h2>Mentees</h2>
-                    <p>40</p>
+            <div class="card cyan">
+                <div class="stat-card">
+                    <div class="stat-icon">👨‍🎓</div>
+                    <div class="stat-content">
+                        <h3>Active Mentees</h3>
+                        <p class="stat-number" id="active-mentees">Loading...</p>
+                    </div>
                 </div>
             </div>
-            <div class="card yellow summary-card">
-                <div>
-                    <h2>Meetings This Week</h2>
-                    <p>25</p>
+            <div class="card orange">
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-content">
+                        <h3>Total Meetings</h3>
+                        <p class="stat-number" id="total-meetings">Loading...</p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Recent Activities -->
-        <div class="table-container">
-            <h2>Recent Activities</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>User</th>
-                        <th>Activity</th>
-                        <th>Timestamp</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>John Doe (Mentor)</td>
-                        <td>Created a new Meeting</td>
-                        <td>Today, 10:30 AM</td>
-                    </tr>
-                    <tr>
-                        <td>Alice Smith (Mentee)</td>
-                        <td>Submitted Feedback</td>
-                        <td>Today, 9:45 AM</td>
-                    </tr>
-                    <tr>
-                        <td>Admin</td>
-                        <td>Added New User</td>
-                        <td>Yesterday, 3:20 PM</td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- System Analytics -->
+        <div class="grid grid-2">
+            <!-- User Activity Chart -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>User Activity</h2>
+                    <select class="form-input" style="width: auto;" onchange="updateActivityChart(this.value)">
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+                    </select>
+                </div>
+                <canvas id="activityChart"></canvas>
+            </div>
+
+            <!-- Meeting Statistics -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Meeting Statistics</h2>
+                </div>
+                <canvas id="meetingChart"></canvas>
+            </div>
         </div>
 
-        <!-- User Management Section -->
-        <div class="table-container">
-            <h2>User Management</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Role</th>
-                        <th>Email</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Michael Johnson</td>
-                        <td>Mentor</td>
-                        <td>mjohnson@college.edu</td>
-                        <td>
-                            <button class="btn">Edit</button>
-                            <button class="btn btn-danger">Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Sarah Lee</td>
-                        <td>Mentee</td>
-                        <td>sarahl@college.edu</td>
-                        <td>
-                            <button class="btn">Edit</button>
-                            <button class="btn btn-danger">Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Admin</td>
-                        <td>Administrator</td>
-                        <td>admin@college.edu</td>
-                        <td>
-                            <button class="btn">Edit</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- Recent Activity and Alerts -->
+        <div class="grid grid-2">
+            <!-- Recent Activity Log -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Recent Activity</h2>
+                    <button class="btn btn-outline" onclick="viewAllActivity()">View All</button>
+                </div>
+                <div class="activity-log" id="activity-log">
+                    <!-- Activity log entries will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Emergency Alerts -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Emergency Alerts</h2>
+                    <span class="badge badge-danger" id="alert-count">0</span>
+                </div>
+                <div class="alerts-list" id="alerts-list">
+                    <!-- Emergency alerts will be loaded here -->
+                </div>
+            </div>
         </div>
 
-        <!-- Announcements Section -->
-        <div class="table-container">
-            <h2>Announcements</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Content</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>System Maintenance</td>
-                        <td>Scheduled maintenance on March 15th.</td>
-                        <td>March 10, 2025</td>
-                    </tr>
-                    <tr>
-                        <td>New Feature Update</td>
-                        <td>Mentorship system now supports file uploads.</td>
-                        <td>March 8, 2025</td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- User Management -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h2>User Management</h2>
+                <div>
+                    <button class="btn btn-outline mr-2" onclick="exportUserData()">Export Data</button>
+                    <button class="btn btn-primary" onclick="showAddUserModal()">Add User</button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Last Active</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-table">
+                        <!-- User entries will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
+
+    <!-- Add User Modal -->
+    <div id="add-user-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New User</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <form id="add-user-form" onsubmit="handleAddUser(event)">
+                <div class="form-group">
+                    <label class="form-label">Role</label>
+                    <select class="form-input" id="user-role" required>
+                        <option value="mentor">Mentor</option>
+                        <option value="mentee">Mentee</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" id="user-email" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">PRN ID</label>
+                    <input type="text" class="form-input" id="user-prn" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Phone Number</label>
+                    <input type="tel" class="form-input" id="user-phone" required>
+                </div>
+                <div class="form-group text-right">
+                    <button type="button" class="btn btn-outline mr-2" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add User</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add this section after the main dashboard content but before the closing container div -->
+    <div class="section mt-4">
+        <h2 class="section-title">Common Features</h2>
+        <div class="grid grid-4">
+            <!-- Meeting Schedule Card -->
+            <div class="card feature-card" data-feature="meeting_schedule">
+                <div>
+                    <i class="fas fa-calendar-alt icon-lg"></i>
+                    <h3>Meeting Schedule</h3>
+                    <p>View and manage all scheduled meetings</p>
+                </div>
+                <a href="meeting-schedule.html" class="btn btn-primary">Access</a>
+            </div>
+            
+            <!-- Student Profile Card -->
+            <div class="card feature-card" data-feature="student_profile">
+                <div>
+                    <i class="fas fa-user-graduate icon-lg"></i>
+                    <h3>Student Profiles</h3>
+                    <p>View detailed student information</p>
+                </div>
+                <a href="student-profile.html" class="btn btn-primary">Access</a>
+            </div>
+            
+            <!-- Communication Hub Card -->
+            <div class="card feature-card" data-feature="communication_hub">
+                <div>
+                    <i class="fas fa-comments icon-lg"></i>
+                    <h3>Communication Hub</h3>
+                    <p>Messages, alerts, and broadcasts</p>
+                </div>
+                <a href="communication-hub.html" class="btn btn-primary">Access</a>
+            </div>
+            
+            <!-- Reports Card -->
+            <div class="card feature-card" data-feature="reports">
+                <div>
+                    <i class="fas fa-chart-bar icon-lg"></i>
+                    <h3>Reports</h3>
+                    <p>Generate and view system reports</p>
+                </div>
+                <a href="reports.html" class="btn btn-primary">Access</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Load navigation
+    fetch('components/navigation.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('nav-placeholder').innerHTML = data;
+        });
+
+    // Sample data - Replace with actual API calls
+    const stats = {
+        totalUsers: 27,
+        activeUsers: 25,
+        totalMentors: 5,
+        activeMentors: 5,
+        totalMentees: 20,
+        activeMentees: 18,
+        totalMeetings: 45
+    };
+
+    const activityLog = [
+        {
+            id: 1,
+            user: "John Doe",
+            action: "Logged in",
+            timestamp: "2025-03-11 09:15:00",
+            ip: "192.168.0.1"
+        },
+        // Add more activity logs
+    ];
+
+    const emergencyAlerts = [
+        {
+            id: 1,
+            reason: "Mentee reported feeling unwell during a meeting",
+            status: "pending",
+            timestamp: "2025-03-11 10:30:00"
+        },
+        // Add more alerts
+    ];
+
+    const users = [
+        {
+            name: "John Doe",
+            role: "mentor",
+            email: "john@example.com",
+            status: "active",
+            lastActive: "2025-03-11 09:15:00"
+        },
+        // Add more users
+    ];
+
+    // Initialize charts
+    document.addEventListener('DOMContentLoaded', function() {
+        loadStats();
+        loadActivityLog();
+        loadEmergencyAlerts();
+        loadUsers();
+        initializeCharts();
+    });
+
+    function loadStats() {
+        document.getElementById('total-users').textContent = stats.totalUsers;
+        document.getElementById('active-mentors').textContent = stats.activeMentors;
+        document.getElementById('active-mentees').textContent = stats.activeMentees;
+        document.getElementById('total-meetings').textContent = stats.totalMeetings;
+    }
+
+    function loadActivityLog() {
+        const logContainer = document.getElementById('activity-log');
+        logContainer.innerHTML = activityLog.map(log => `
+            <div class="activity-item">
+                <div class="flex justify-between">
+                    <strong>${log.user}</strong>
+                    <span class="activity-time">${log.timestamp}</span>
+                </div>
+                <div>${log.action}</div>
+                <div class="text-light">IP: ${log.ip}</div>
+            </div>
+        `).join('');
+    }
+
+    function loadEmergencyAlerts() {
+        const alertsContainer = document.getElementById('alerts-list');
+        const pendingAlerts = emergencyAlerts.filter(alert => alert.status === 'pending');
+        
+        document.getElementById('alert-count').textContent = pendingAlerts.length;
+        
+        alertsContainer.innerHTML = emergencyAlerts.map(alert => `
+            <div class="alert-item">
+                <div>
+                    <div>${alert.reason}</div>
+                    <div class="activity-time">${alert.timestamp}</div>
+                </div>
+                <div>
+                    <span class="badge ${alert.status === 'pending' ? 'badge-danger' : 'badge-success'}">${alert.status}</span>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function loadUsers() {
+        const usersContainer = document.getElementById('users-table');
+        usersContainer.innerHTML = users.map(user => `
+            <tr>
+                <td>${user.name}</td>
+                <td><span class="badge badge-primary">${user.role}</span></td>
+                <td>${user.email}</td>
+                <td><span class="badge ${user.status === 'active' ? 'badge-success' : 'badge-warning'}">${user.status}</span></td>
+                <td>${user.lastActive}</td>
+                <td>
+                    <button class="btn btn-outline btn-sm" onclick="editUser('${user.email}')">Edit</button>
+                    <button class="btn btn-danger btn-sm" onclick="deactivateUser('${user.email}')">Deactivate</button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    function initializeCharts() {
+        // User Activity Chart
+        const activityCtx = document.getElementById('activityChart').getContext('2d');
+        new Chart(activityCtx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    label: 'Active Users',
+                    data: [65, 59, 80, 81, 56, 55, 40],
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            }
+        });
+
+        // Meeting Statistics Chart
+        const meetingCtx = document.getElementById('meetingChart').getContext('2d');
+        new Chart(meetingCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Scheduled', 'Completed', 'Cancelled'],
+                datasets: [{
+                    data: [30, 50, 20],
+                    backgroundColor: [
+                        'rgb(54, 162, 235)',
+                        'rgb(75, 192, 192)',
+                        'rgb(255, 99, 132)'
+                    ]
+                }]
+            }
+        });
+    }
+
+    // Modal functions
+    function showAddUserModal() {
+        document.getElementById('add-user-modal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('add-user-modal').style.display = 'none';
+    }
+
+    // User management functions
+    function handleAddUser(event) {
+        event.preventDefault();
+        // Implement user creation logic
+        alert('User added successfully!');
+        closeModal();
+    }
+
+    function editUser(email) {
+        // Implement edit user logic
+        alert('Edit user: ' + email);
+    }
+
+    function deactivateUser(email) {
+        // Implement deactivate user logic
+        alert('Deactivate user: ' + email);
+    }
+
+    function exportUserData() {
+        // Implement export functionality
+        alert('Exporting user data...');
+    }
+
+    function viewAllActivity() {
+        // Implement view all activity logic
+        alert('Viewing all activity...');
+    }
+
+    function updateActivityChart(timeframe) {
+        // Implement chart update logic
+        alert('Updating chart for ' + timeframe + ' view');
+    }
+    </script>
 </body>
 </html>

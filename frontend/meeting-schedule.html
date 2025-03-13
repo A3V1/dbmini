@@ -3,134 +3,356 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schedule a Meeting</title>
+    <title>Meeting Schedule - Mentor-Mentee Portal</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: white;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .container {
-            width: 90%;
-            max-width: 600px;
-            margin: 20px;
-        }
-        .form-box {
-            background: #0d47a1;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .form-box:hover {
-            transform: scale(1.02);
-            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.4);
-        }
-        .header {
-            text-align: center;
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: orange;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            font-size: 16px;
-            margin-bottom: 6px;
-            color: orange;
-        }
-        input, textarea, select {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 6px;
-            margin-top: 4px;
-            background: #1e3c72;
-            color: white;
-        }
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            background: #2a5298;
-            border: 1px solid orange;
-        }
-        .btn {
-            background: orange;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            color: white;
-            width: 100%;
-            margin-top: 20px;
-            transition: background 0.3s, transform 0.3s;
-        }
-        .btn:hover {
-            background: darkorange;
-            transform: scale(1.02);
-        }
-    </style>
+    <!-- Include FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/main.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid/main.css" rel="stylesheet" />
 </head>
 <body>
+    <!-- Include Navigation -->
+    <div id="nav-placeholder"></div>
+
     <div class="container">
-        <div class="form-box">
-            <div class="header">Schedule a Meeting</div>
-            <form>
+        <div class="grid grid-3">
+            <!-- Calendar Section -->
+            <div class="col-span-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Meeting Calendar</h2>
+                        <button class="btn btn-primary" onclick="showNewMeetingModal()">Schedule Meeting</button>
+                    </div>
+                    <div id="calendar"></div>
+                </div>
+            </div>
+
+            <!-- Upcoming Meetings Section -->
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Upcoming Meetings</h2>
+                    </div>
+                    <div id="upcoming-meetings">
+                        <!-- Upcoming meetings will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Meeting Requests Section -->
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h2>Meeting Requests</h2>
+                    </div>
+                    <div id="meeting-requests">
+                        <!-- Meeting requests will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Meeting Modal -->
+    <div id="meeting-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Schedule New Meeting</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <form id="meeting-form" onsubmit="handleMeetingSubmit(event)">
                 <div class="form-group">
-                    <label for="mentor">Select Mentor:</label>
-                    <select id="mentor" name="mentor" required>
-                        <option value="" disabled selected>Select a Mentor</option>
-                        <option value="mentor1">Dr. Rajesh Singh</option>
-                        <option value="mentor2">Prof. Anita Deshmukh</option>
-                        <option value="mentor3">Mr. Ramesh Gupta</option>
+                    <label class="form-label" for="meeting-title">Title</label>
+                    <input type="text" id="meeting-title" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="meeting-date">Date</label>
+                    <input type="date" id="meeting-date" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="meeting-time">Time</label>
+                    <input type="time" id="meeting-time" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="meeting-duration">Duration (minutes)</label>
+                    <select id="meeting-duration" class="form-input" required>
+                        <option value="30">30 minutes</option>
+                        <option value="60">1 hour</option>
+                        <option value="90">1.5 hours</option>
+                        <option value="120">2 hours</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="title">Meeting Title:</label>
-                    <input type="text" id="title" name="title" placeholder="Enter Meeting Title" required>
+                    <label class="form-label" for="meeting-type">Meeting Type</label>
+                    <select id="meeting-type" class="form-input" required>
+                        <option value="academic-review">Academic Review</option>
+                        <option value="project-discussion">Project Discussion</option>
+                        <option value="general-mentoring">General Mentoring</option>
+                        <option value="emergency">Emergency Meeting</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label for="description">Description:</label>
-                    <textarea id="description" name="description" rows="4" placeholder="Enter Meeting Description" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="datetime">Scheduled Date & Time:</label>
-                    <input type="datetime-local" id="datetime" name="datetime" required>
-                </div>
-                <div class="form-group">
-                    <label for="duration">Duration (minutes):</label>
-                    <input type="number" id="duration" name="duration" placeholder="Enter Duration in Minutes" min="1" required>
-                </div>
-                <div class="form-group">
-                    <label for="mode">Meeting Mode:</label>
-                    <select id="mode" name="mode" required>
-                        <option value="" disabled selected>Select Mode</option>
+                    <label class="form-label" for="meeting-mode">Meeting Mode</label>
+                    <select id="meeting-mode" class="form-input" required>
                         <option value="online">Online</option>
                         <option value="offline">Offline</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="status">Meeting Status:</label>
-                    <select id="status" name="status" required>
-                        <option value="" disabled selected>Select Status</option>
-                        <option value="scheduled">Scheduled</option>
-                        <option value="completed">Completed</option>
-                        <option value="cancelled">Cancelled</option>
-                    </select>
+                    <label class="form-label" for="meeting-description">Description</label>
+                    <textarea id="meeting-description" class="form-input" rows="3"></textarea>
                 </div>
-                <button type="submit" class="btn">Schedule Meeting</button>
+                <div class="form-group text-right">
+                    <button type="button" class="btn btn-outline mr-2" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Schedule Meeting</button>
+                </div>
             </form>
         </div>
     </div>
+
+    <style>
+    .col-span-2 {
+        grid-column: span 2;
+    }
+
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .modal-content {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 500px;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .close {
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    .meeting-card {
+        padding: 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        margin-bottom: 1rem;
+    }
+
+    .meeting-card:hover {
+        background-color: var(--background-color);
+    }
+
+    .meeting-time {
+        color: var(--primary-color);
+        font-weight: bold;
+    }
+
+    .meeting-title {
+        font-weight: bold;
+        margin: 0.5rem 0;
+    }
+
+    .meeting-actions {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+        .grid-3 {
+            grid-template-columns: 1fr;
+        }
+
+        .col-span-2 {
+            grid-column: span 1;
+        }
+    }
+    </style>
+
+    <!-- Include FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction/main.js"></script>
+
+    <script>
+    // Load navigation
+    fetch('components/navigation.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('nav-placeholder').innerHTML = data;
+        });
+
+    // Sample data - Replace with actual API calls
+    const meetings = [
+        {
+            id: 1,
+            title: "Academic Review",
+            start: "2025-03-15T10:00:00",
+            end: "2025-03-15T11:00:00",
+            type: "academic-review",
+            mode: "online",
+            description: "Monthly academic progress review",
+            status: "scheduled"
+        },
+        // Add more meetings
+    ];
+
+    const meetingRequests = [
+        {
+            id: 1,
+            title: "Project Discussion",
+            requestedBy: "John Doe",
+            date: "2025-03-20",
+            time: "14:00",
+            duration: 60,
+            type: "project-discussion",
+            status: "pending"
+        },
+        // Add more meeting requests
+    ];
+
+    // Initialize calendar
+    document.addEventListener('DOMContentLoaded', function() {
+        const calendarEl = document.getElementById('calendar');
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            plugins: ['dayGrid', 'timeGrid', 'interaction'],
+            initialView: 'timeGridWeek',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            events: meetings,
+            editable: true,
+            selectable: true,
+            selectMirror: true,
+            dayMaxEvents: true,
+            select: function(arg) {
+                showNewMeetingModal(arg);
+            },
+            eventClick: function(info) {
+                // Handle event click
+                alert('Meeting: ' + info.event.title);
+            }
+        });
+        calendar.render();
+        
+        // Load upcoming meetings and requests
+        loadUpcomingMeetings();
+        loadMeetingRequests();
+    });
+
+    // Load upcoming meetings
+    function loadUpcomingMeetings() {
+        const upcomingMeetingsContainer = document.getElementById('upcoming-meetings');
+        const upcomingMeetings = meetings.filter(meeting => new Date(meeting.start) > new Date());
+        
+        upcomingMeetingsContainer.innerHTML = upcomingMeetings.map(meeting => `
+            <div class="meeting-card">
+                <div class="meeting-time">${formatDateTime(meeting.start)}</div>
+                <div class="meeting-title">${meeting.title}</div>
+                <div>${meeting.description}</div>
+                <div class="badge badge-primary">${meeting.mode}</div>
+                <div class="meeting-actions">
+                    <button class="btn btn-outline btn-sm" onclick="editMeeting(${meeting.id})">Edit</button>
+                    <button class="btn btn-danger btn-sm" onclick="cancelMeeting(${meeting.id})">Cancel</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Load meeting requests
+    function loadMeetingRequests() {
+        const requestsContainer = document.getElementById('meeting-requests');
+        requestsContainer.innerHTML = meetingRequests.map(request => `
+            <div class="meeting-card">
+                <div class="meeting-title">${request.title}</div>
+                <div>Requested by: ${request.requestedBy}</div>
+                <div class="meeting-time">${request.date} ${request.time}</div>
+                <div>Duration: ${request.duration} minutes</div>
+                <div class="badge badge-warning">${request.status}</div>
+                <div class="meeting-actions">
+                    <button class="btn btn-primary btn-sm" onclick="approveMeeting(${request.id})">Approve</button>
+                    <button class="btn btn-danger btn-sm" onclick="rejectMeeting(${request.id})">Reject</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Modal functions
+    function showNewMeetingModal(dateInfo = null) {
+        const modal = document.getElementById('meeting-modal');
+        if (dateInfo) {
+            document.getElementById('meeting-date').value = dateInfo.startStr.split('T')[0];
+            const timePart = dateInfo.startStr.split('T')[1];
+            document.getElementById('meeting-time').value = timePart ? timePart.slice(0, 5) : '';
+        }
+        modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('meeting-modal').style.display = 'none';
+    }
+
+    // Form submission
+    function handleMeetingSubmit(event) {
+        event.preventDefault();
+        // Implement meeting creation logic
+        alert('Meeting scheduled successfully!');
+        closeModal();
+    }
+
+    // Utility functions
+    function formatDateTime(dateTimeStr) {
+        const date = new Date(dateTimeStr);
+        return date.toLocaleString('en-US', {
+            weekday: 'short',
+            month: 'short',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true
+        });
+    }
+
+    // Meeting actions
+    function editMeeting(id) {
+        // Implement edit meeting logic
+        alert('Edit meeting ' + id);
+    }
+
+    function cancelMeeting(id) {
+        // Implement cancel meeting logic
+        alert('Cancel meeting ' + id);
+    }
+
+    function approveMeeting(id) {
+        // Implement approve meeting logic
+        alert('Approve meeting ' + id);
+    }
+
+    function rejectMeeting(id) {
+        // Implement reject meeting logic
+        alert('Reject meeting ' + id);
+        }
+    </script>
 </body>
 </html>

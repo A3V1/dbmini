@@ -1,0 +1,248 @@
+<!-- Navigation Component -->
+<nav class="navbar">
+    <div class="navbar-brand">
+        <h1>Mentor-Mentee Portal</h1>
+    </div>
+    
+    <ul class="navbar-nav">
+        <!-- Dashboard Links (Role-specific) -->
+        <li class="admin-only">
+            <a href="admin-dashboard.html">Admin Dashboard</a>
+        </li>
+        <li class="mentor-only">
+            <a href="mentor-dashboard.html">Mentor Dashboard</a>
+        </li>
+        <li class="mentee-only">
+            <a href="mentee-dashboard.html">Mentee Dashboard</a>
+        </li>
+        
+        <!-- Common Features - Available to all roles -->
+        <li class="common-feature">
+            <a href="meeting-schedule.html">Meeting Schedule</a>
+        </li>
+        <li class="common-feature">
+            <a href="student-profile.html">Student Profile</a>
+        </li>
+        <li class="common-feature">
+            <a href="communication-hub.html">Communication Hub</a>
+        </li>
+    </ul>
+    
+    <div class="navbar-right">
+        <span id="userName">User Name</span>
+        <div class="dropdown">
+            <button class="dropdown-toggle" onclick="toggleDropdown()">
+                <i class="fa fa-user"></i>
+            </button>
+            <div class="dropdown-menu" id="userDropdown">
+                <a href="profile.html">Profile</a>
+                <a href="settings.html">Settings</a>
+                <a href="#" id="logoutBtn">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<style>
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: var(--primary-color);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .navbar-brand h1 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: white;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    
+    .navbar-nav {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .navbar-nav li {
+        margin: 0 0.5rem;
+        position: relative;
+    }
+    
+    .navbar-nav a {
+        color: white;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        font-weight: 500;
+        transition: all 0.2s;
+    }
+    
+    .navbar-nav a:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .navbar-nav a.active {
+        background-color: var(--secondary-color);
+    }
+    
+    .navbar-right {
+        display: flex;
+        align-items: center;
+        color: white;
+    }
+    
+    #userName {
+        margin-right: 1rem;
+        font-weight: 500;
+    }
+    
+    .dropdown {
+        position: relative;
+    }
+    
+    .dropdown-toggle {
+        background: var(--secondary-color);
+        border: none;
+        color: white;
+        cursor: pointer;
+        font-size: 1.2rem;
+        padding: 0.5rem;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s;
+    }
+    
+    .dropdown-toggle:hover {
+        background-color: #ea580c; /* Darker orange */
+    }
+    
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        right: 0;
+        background-color: white;
+        min-width: 180px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        z-index: 1;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-top: 0.5rem;
+        border-top: 3px solid var(--secondary-color);
+    }
+    
+    .dropdown-menu a {
+        color: var(--text-color);
+        padding: 0.75rem 1rem;
+        text-decoration: none;
+        display: block;
+        transition: all 0.2s;
+        border-left: 3px solid transparent;
+    }
+    
+    .dropdown-menu a:hover {
+        background-color: var(--orange-light);
+        border-left: 3px solid var(--secondary-color);
+    }
+    
+    /* Mobile responsive navigation */
+    @media (max-width: 768px) {
+        .navbar {
+            flex-direction: column;
+            padding: 1rem;
+        }
+        
+        .navbar-brand {
+            margin-bottom: 1rem;
+        }
+        
+        .navbar-nav {
+            flex-direction: column;
+            width: 100%;
+        }
+        
+        .navbar-nav li {
+            margin: 0.25rem 0;
+            width: 100%;
+        }
+        
+        .navbar-nav a {
+            display: block;
+            text-align: center;
+        }
+        
+        .navbar-right {
+            margin-top: 1rem;
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+
+<script>
+    // Toggle dropdown menu
+    function toggleDropdown() {
+        const dropdown = document.getElementById('userDropdown');
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+    
+    // Close dropdown when clicking outside
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropdown-toggle')) {
+            const dropdown = document.getElementById('userDropdown');
+            if (dropdown.style.display === 'block') {
+                dropdown.style.display = 'none';
+            }
+        }
+    }
+    
+    // Update navigation based on user role
+    function updateNavigation() {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) return;
+        
+        // Update user name
+        document.getElementById('userName').textContent = currentUser.official_mail_id;
+        
+        // Show/hide role-specific navigation items
+        const adminItems = document.querySelectorAll('.admin-only');
+        const mentorItems = document.querySelectorAll('.mentor-only');
+        const menteeItems = document.querySelectorAll('.mentee-only');
+        
+        adminItems.forEach(item => item.style.display = currentUser.role === 'admin' ? 'block' : 'none');
+        mentorItems.forEach(item => item.style.display = currentUser.role === 'mentor' ? 'block' : 'none');
+        menteeItems.forEach(item => item.style.display = currentUser.role === 'mentee' ? 'block' : 'none');
+        
+        // Highlight active page
+        const currentPage = window.location.pathname.split('/').pop().replace('.html', '');
+        document.querySelectorAll('.navbar-nav a').forEach(link => {
+            const linkPage = link.getAttribute('href').replace('.html', '');
+            if (linkPage === currentPage) {
+                link.classList.add('active');
+            }
+        });
+    }
+    
+    // Initialize navigation
+    document.addEventListener('DOMContentLoaded', function() {
+        updateNavigation();
+        
+        // Add logout handler
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', function() {
+                localStorage.removeItem('currentUser');
+                window.location.href = 'mit-wpu-login.html';
+            });
+        }
+    });
+</script> 

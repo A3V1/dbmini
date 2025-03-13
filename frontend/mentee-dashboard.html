@@ -8,19 +8,22 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f3f4f6;
+            background-color: var(--background-color);
             margin: 0;
-            padding: 24px;
+            padding: 0;
         }
 
         .dashboard-container {
             max-width: 1200px;
             margin: auto;
+            padding: 24px;
         }
 
         .dashboard-title {
             font-size: 28px;
             font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 20px;
         }
 
         .dashboard-grid {
@@ -31,16 +34,31 @@
         }
 
         .card {
-            background: white;
+            background: var(--white);
             padding: 16px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 3px solid var(--primary-color);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         }
 
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .card-header h2 {
+            color: var(--primary-color);
+            margin: 0;
         }
 
         .btn, .btn-outline {
@@ -48,24 +66,40 @@
             border-radius: 4px;
             cursor: pointer;
             border: none;
+            transition: all 0.3s ease;
         }
 
         .btn {
-            background-color: #2563eb;
+            background-color: var(--primary-color);
             color: white;
+        }
+        
+        .btn:hover {
+            background-color: #153e75;
+            transform: translateY(-2px);
         }
 
         .btn-outline {
-            border: 1px solid #2563eb;
-            color: #2563eb;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
             background: transparent;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--blue-light);
+            transform: translateY(-2px);
         }
 
         .mentor-info {
             padding: 12px;
-            background: #f9fafb;
+            background: var(--blue-light);
             border-radius: 6px;
             margin-top: 8px;
+        }
+        
+        .mentor-info h3 {
+            color: var(--primary-color);
+            margin-top: 0;
         }
 
         .mentor-rating {
@@ -76,15 +110,28 @@
         }
 
         .star {
-            color: #fbbf24;
+            color: var(--secondary-color);
         }
 
         .progress-tracker {
             margin-top: 16px;
         }
+        
+        .progress-tracker h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 8px;
+        }
 
+        .progress-bar-container {
+            background-color: #e5e7eb;
+            height: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        
         .progress-bar {
-            background-color: #2563eb;
+            background-color: var(--secondary-color);
             height: 10px;
             border-radius: 4px;
             width: 70%; /* Example progress */
@@ -93,12 +140,24 @@
         .achievements {
             margin-top: 24px;
         }
+        
+        .achievements h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 8px;
+        }
 
         .achievement-item {
-            padding: 8px;
-            background-color: #e0f2fe;
+            padding: 12px;
+            background-color: var(--orange-light);
             margin-bottom: 8px;
             border-radius: 4px;
+            border-left: 4px solid var(--secondary-color);
+            transition: transform 0.2s ease;
+        }
+        
+        .achievement-item:hover {
+            transform: translateX(5px);
         }
 
         .upcoming-meetings, .recent-messages {
@@ -107,93 +166,146 @@
 
         .meeting-item, .message-item {
             padding: 12px;
-            background-color: #f9fafb;
+            background-color: var(--blue-light);
             border-radius: 4px;
             margin-bottom: 8px;
+            border-left: 4px solid var(--primary-color);
+            transition: transform 0.2s ease;
+        }
+        
+        .meeting-item:hover, .message-item:hover {
+            transform: translateX(5px);
         }
 
         .notification {
-            background-color: #fef3c7;
+            background-color: var(--orange-light);
             padding: 12px;
             border-radius: 4px;
-            margin-bottom: 8px;
+            margin-bottom: 16px;
+            border-left: 4px solid var(--secondary-color);
         }
 
         .contact-mentor {
             margin-top: 16px;
             text-align: right;
         }
+        
+        .section-title {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 8px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 24px;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .feature-card .icon-lg {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            color: var(--secondary-color);
+        }
+        
+        .feature-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+        
+        .feature-card p {
+            color: var(--light-text);
+            margin-bottom: 16px;
+        }
+        
+        .feature-card .btn {
+            margin-top: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="nav-links">
+                <a href="mentee-dashboard.html" class="nav-link">Dashboard</a>
+                <a href="student-profile.html" class="nav-link" data-feature="student_profile">Profile</a>
+                <a href="achievements.html" class="nav-link" data-feature="achievements">Achievements</a>
+                <a href="meeting-schedule.html" class="nav-link" data-feature="meeting_schedule">Meetings</a>
+                <button id="logoutBtn" class="btn btn-danger">Logout</button>
+            </div>
+        </div>
+    </nav>
+
     <div class="dashboard-container">
         <h1 class="dashboard-title">Mentee Dashboard</h1>
+        
+        <div class="stats-grid">
+            <div class="card" id="totalAchievements">
+                <div class="feature-icon">🏆</div>
+                <h3 class="value">0</h3>
+                <p class="label">My Achievements</p>
+            </div>
+            <div class="card" id="attendance">
+                <div class="feature-icon">📊</div>
+                <h3 class="value">0%</h3>
+                <p class="label">Attendance</p>
+            </div>
+            <div class="card" id="academicStatus">
+                <div class="feature-icon">📚</div>
+                <h3 class="value">Good</h3>
+                <p class="label">Academic Status</p>
+            </div>
+            <div class="card" id="unreadMessages">
+                <div class="feature-icon">📫</div>
+                <h3 class="value">0</h3>
+                <p class="label">Unread Messages</p>
+            </div>
+        </div>
 
-        <div class="dashboard-grid">
-
-            <!-- Main Content Area -->
-            <div>
-                <!-- Notifications -->
-                <div class="card notification">
-                    <strong>Notice:</strong> Your mentor has scheduled a meeting for tomorrow at 10:00 AM.
+        <div class="feature-grid">
+            <div class="card" data-feature="achievements">
+                <div class="card-header">
+                    <h2>Recent Achievements</h2>
                 </div>
-
-                <!-- Mentor Information -->
-                <div class="card">
-                    <div class="card-header">
-                        <h2>Your Mentor</h2>
-                        <button class="btn-outline">View Profile</button>
-                    </div>
-                    <div class="mentor-info">
-                        <h3>Dr. Alex Johnson</h3>
-                        <div class="mentor-rating">
-                            <span class="star">⭐</span><span>4.8 (32 reviews)</span>
-                        </div>
-                        <div class="contact-mentor">
-                            <button class="btn">Message Mentor</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Progress Tracker -->
-                <div class="card progress-tracker">
-                    <h2>Progress Tracker</h2>
-                    <div class="progress-bar"></div>
-                    <p>70% Completed</p>
-                </div>
-
-                <!-- Achievements -->
-                <div class="card achievements">
-                    <h2>Your Achievements</h2>
-                    <div class="achievement-item">🏆 Best Project Award</div>
-                    <div class="achievement-item">📜 Completed JavaScript Workshop</div>
-                    <div class="achievement-item">🎓 Semester GPA: 9.2</div>
+                <div id="achievementsList" class="card-body">
+                    <!-- Achievements will be loaded here -->
                 </div>
             </div>
-
-            <!-- Side Panel -->
-            <div>
-                <!-- Upcoming Meetings -->
-                <div class="card upcoming-meetings">
-                    <div class="card-header">
-                        <h2>Upcoming Meetings</h2>
-                        <button class="btn-outline">+ Schedule</button>
-                    </div>
-                    <div class="meeting-item">Mentorship Session - Tomorrow at 10:00 AM</div>
-                    <div class="meeting-item">Project Review - Next Monday at 2:00 PM</div>
+            
+            <div class="card" data-feature="meeting_schedule">
+                <div class="card-header">
+                    <h2>Upcoming Meetings</h2>
                 </div>
-
-                <!-- Recent Messages -->
-                <div class="card recent-messages">
-                    <div class="card-header">
-                        <h2>Recent Messages</h2>
-                        <button class="btn-outline">View All</button>
-                    </div>
-                    <div class="message-item">Mentor: Please prepare your project report for the next meeting.</div>
-                    <div class="message-item">Mentor: Great progress on your assignment!</div>
+                <div id="upcomingMeetings" class="card-body">
+                    <!-- Meetings will be loaded here -->
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="js/main.js"></script>
 </body>
 </html>

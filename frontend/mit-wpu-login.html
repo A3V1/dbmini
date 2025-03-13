@@ -3,169 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My MIT WPU Login</title>
+    <title>MIT-WPU Login</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
-            margin: 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
-            height: 100vh;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            justify-content: center;
+            margin: 0;
+            padding: 20px;
             font-family: Arial, sans-serif;
         }
-
+        
         .login-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            max-width: 400px;
             width: 100%;
-        }
-
-        .login-box {
-            background: #0d47a1;
             padding: 30px;
+            background: white;
             border-radius: 12px;
-            text-align: center;
-            color: white;
-            width: 350px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
         }
-
-        .login-box:hover {
-            transform: scale(1.02);
+        
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--secondary-color);
         }
-
+        
         .logo {
-            width: 80px;
-            margin-bottom: 20px;
+            text-align: center;
+            margin-bottom: 30px;
         }
-
-        h2 {
-            margin-bottom: 20px;
-            border-bottom: 1px solid orange;
-            padding-bottom: 10px;
-        }
-
-        label {
-            display: block;
-            text-align: left;
+        
+        .logo h1 {
+            color: var(--primary-color);
             margin-bottom: 5px;
-            margin-top: 15px;
+            font-size: 2.5rem;
+            font-weight: 700;
         }
-
-        input {
+        
+        .logo h2 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        select {
             width: 100%;
-            padding: 12px;
-            margin-top: 5px;
-            border: none;
-            border-radius: 5px;
+            padding: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background-color: #f8fafc;
+            color: var(--text-color);
+        }
+        
+        select:focus {
+            border-color: var(--accent-color);
             outline: none;
-            background: #f0f0f0;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        
+        .btn-login {
+            width: 100%;
+            padding: 15px;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(249, 115, 22, 0.2);
+        }
+        
+        .btn-login:hover {
+            background: #ea580c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(249, 115, 22, 0.3);
+        }
+        
+        .btn-login:active {
+            transform: translateY(0);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #6b7280;
             font-size: 14px;
         }
-
-        .password-container {
-            display: flex;
-            align-items: center;
-            position: relative;
-            margin-top: 10px;
+        
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
         }
-
-        .password-container button {
-            position: absolute;
-            right: 10px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: black;
-        }
-
-        .remember-me {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 12px;
-            margin-top: 10px;
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 12px;
-            background: orange;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            color: white;
-            margin-top: 20px;
-            transition: background 0.3s;
-        }
-
-        .login-btn:hover {
-            background: darkorange;
-        }
-
-        .footer-links {
-            margin-top: 15px;
-            font-size: 12px;
-        }
-
-        .footer-links a {
-            color: white;
-            margin: 0 5px;
+        
+        .footer a:hover {
             text-decoration: underline;
         }
-
-        .footer-links a:hover {
-            color: orange;
+        
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 20px;
+            }
+            
+            .logo h1 {
+                font-size: 2rem;
+            }
+            
+            .logo h2 {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <div class="login-box">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/1b/MIT_World_Peace_University_logo.svg/1200px-MIT_World_Peace_University_logo.svg.png" alt="MIT WPU Logo" class="logo">
-            <h2>Welcome to My MIT WPU</h2>
-            <form>
-                <label for="username">User Name</label>
-                <input type="text" id="username" placeholder="Enter your username" required>
-                
-                <label for="password">Password</label>
-                <div class="password-container">
-                    <input type="password" id="password" placeholder="Enter your password" required>
-                    <button type="button" id="togglePassword">👁</button>
-                </div>
-                
-                <div class="remember-me">
-                    <div>
-                        <input type="checkbox" id="remember">
-                        <label for="remember">Remember me</label>
-                    </div>
-                    <a href="#" class="forgot-password">Forgot Password?</a>
-                </div>
-                
-                <button type="submit" class="login-btn">LOGIN</button>
-            </form>
-            <div class="footer-links">
-                <a href="#">Privacy Policy</a> | <a href="#">Terms & Conditions</a>
+        <div class="logo">
+            <h1>MIT-WPU</h1>
+            <h2>Mentor-Mentee Portal</h2>
+        </div>
+        <form id="loginForm">
+            <div class="form-group">
+                <select id="role" name="role" required>
+                    <option value="">Select your role</option>
+                    <option value="admin">Admin</option>
+                    <option value="mentor">Mentor</option>
+                    <option value="mentee">Mentee</option>
+                </select>
             </div>
+            <button type="submit" class="btn-login">Enter Portal</button>
+        </form>
+        <div class="footer">
+            <p>© 2025 MIT World Peace University</p>
+            <p><a href="#">Need Help?</a> | <a href="#">Privacy Policy</a></p>
         </div>
     </div>
-    <script>
-        document.getElementById('togglePassword').addEventListener('click', function() {
-            const passwordField = document.getElementById('password');
-            const passwordToggle = this;
-            if (passwordField.type === 'password') {
-                passwordField.type = 'text';
-                passwordToggle.textContent = '🙈';
-            } else {
-                passwordField.type = 'password';
-                passwordToggle.textContent = '👁';
-            }
-        });
-    </script>
+    
+    <script src="js/main.js"></script>
 </body>
 </html>
