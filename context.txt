@@ -236,3 +236,126 @@ The current mentorship system faces the following challenges:
 ### **5. Expected Outcome**
 
 A **centralized mentor-mentee management system** that improves mentorship efficiency, ensures seamless communication, and automates tracking of meetings, achievements, and feedback, leading to a **structured and efficient learning environment**.—
+
+
+
+
+🌟 Website Structure & Pages
+1️⃣ Homepage (Landing Page)
+
+📌 Purpose: Welcoming users & showcasing the system’s benefits.
+🔹 Hero Section:
+
+    Background image (mentorship-themed) with a catchy tagline
+    Buttons: “Login” | “Sign Up” | “Get Started”
+
+🔹 About Section:
+
+    Short description of the mentorship system
+
+🔹 Key Features (Card UI):
+
+    🎯 Track Progress
+    📅 Schedule Meetings
+    💬 Seamless Communication
+    🚀 Achievements & Reports
+
+🔹 CTA Button: "Get Started" (Navigates to Login/Signup)
+2️⃣ Authentication Pages
+
+📌 Purpose: Role-based login/signup system.
+🔹 Login Page:
+
+    Email & Password fields
+    Role Selection (Admin, Mentor, Mentee)
+    “Forgot Password?” link
+    Clean card-based UI
+
+🔹 Signup Page:
+
+    Mentor & Mentee Sections
+    Name, Email, Role, Institution ID
+
+3️⃣ Role-Based Dashboards (After Login)
+
+📌 Purpose: Custom views for Admins, Mentors, and Mentees.
+🔹 Sidebar Navigation Menu:
+
+    📊 Dashboard
+    💬 Messages
+    📅 Meetings
+    🏆 Achievements
+    📂 Files
+    📜 Logs (Admin only)
+    📢 Announcements
+    ⚙️ Profile & Settings
+
+🟢 Mentor Dashboard
+
+    Quick Summary Section:
+        Upcoming Meetings
+        Mentee Progress
+        Notifications
+    Mentee List:
+        Clickable profile cards
+        Progress bars & last activity
+    Meeting Schedule:
+        Calendar UI with scheduled meetings
+    Chat Panel:
+        Quick access to mentee chats
+
+🟡 Mentee Dashboard
+
+    Mentor Info:
+        Mentor details & contact
+    Upcoming Meeting Reminder
+    Achievement & Feedback Section:
+        View mentor feedback & earned achievements
+    File Upload & Assignments:
+        Submit files & view mentor reviews
+
+🔴 Admin Dashboard
+
+    User Management Panel:
+        Add, remove, assign mentors/mentees
+    Logs & Reports:
+        View system logs, messages, mentorship activity
+    Announcements Dashboard:
+        Send system-wide messages
+
+4️⃣ Communication System (Chat & Messaging)
+
+📌 Purpose: Direct messaging & emergency alerts.
+🔹 Features:
+
+    📨 One-to-one chat (mentor & mentee)
+    📢 Broadcast messages (mentors to all mentees)
+    🚨 Emergency Alert Button (mentee notifies mentor/admin)
+
+5️⃣ Meeting Management
+
+📌 Purpose: Schedule & track mentorship meetings.
+🔹 Features:
+
+    📆 Calendar View: Shows upcoming/completed meetings
+    📋 Meeting Creation Form: Date, time, mode (offline/online), agenda
+    📊 Meeting Status:
+        Upcoming ✅
+        Completed 🏁
+        Rescheduled 🔄
+
+6️⃣ Profile & Settings
+
+📌 Purpose: User preferences & role-based settings.
+🔹 Features:
+
+    Edit Personal Details (Name, Email, Role)
+    Change Password
+    Notification Preferences
+    Admin-Specific Settings
+
+7️⃣ Global Announcements
+
+📌 Purpose: System-wide updates for users.
+🔹 Admin Panel: Create announcements
+🔹 User View: Read-only feed of announcements

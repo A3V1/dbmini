@@ -1,47 +1,120 @@
-<!-- Navigation Component -->
-<nav class="navbar">
-    <div class="navbar-brand">
-        <h1>Mentor-Mentee Portal</h1>
+<!-- Sidebar Navigation -->
+<nav class="sidebar">
+    <div class="sidebar-header">
+        <img src="../assets/logo.png" alt="MMS Logo" class="logo-img">
+        <span class="logo-text">MMS</span>
     </div>
-    
-    <ul class="navbar-nav">
-        <!-- Dashboard Links (Role-specific) -->
-        <li class="admin-only">
-            <a href="admin-dashboard.html">Admin Dashboard</a>
-        </li>
-        <li class="mentor-only">
-            <a href="mentor-dashboard.html">Mentor Dashboard</a>
-        </li>
-        <li class="mentee-only">
-            <a href="mentee-dashboard.html">Mentee Dashboard</a>
-        </li>
-        
-        <!-- Common Features - Available to all roles -->
-        <li class="common-feature">
-            <a href="meeting-schedule.html">Meeting Schedule</a>
-        </li>
-        <li class="common-feature">
-            <a href="student-profile.html">Student Profile</a>
-        </li>
-        <li class="common-feature">
-            <a href="communication-hub.html">Communication Hub</a>
-        </li>
-    </ul>
-    
-    <div class="navbar-right">
-        <span id="userName">User Name</span>
-        <div class="dropdown">
-            <button class="dropdown-toggle" onclick="toggleDropdown()">
-                <i class="fa fa-user"></i>
-            </button>
-            <div class="dropdown-menu" id="userDropdown">
-                <a href="profile.html">Profile</a>
-                <a href="settings.html">Settings</a>
-                <a href="#" id="logoutBtn">Logout</a>
+
+    <div class="sidebar-content">
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-page="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-page="messages">
+                    <i class="fas fa-comments"></i>
+                    <span>Messages</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-page="meetings">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Meetings</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-page="achievements">
+                    <i class="fas fa-trophy"></i>
+                    <span>Achievements</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-page="files">
+                    <i class="fas fa-folder"></i>
+                    <span>Files</span>
+                </a>
+            </li>
+            <!-- Admin-only items -->
+            <li class="nav-item admin-only" style="display: none;">
+                <a href="#" class="nav-link" data-page="logs">
+                    <i class="fas fa-history"></i>
+                    <span>Logs</span>
+                </a>
+            </li>
+            <li class="nav-item admin-only" style="display: none;">
+                <a href="#" class="nav-link" data-page="announcements">
+                    <i class="fas fa-bullhorn"></i>
+                    <span>Announcements</span>
+                </a>
+            </li>
+            <!-- Mentor-only items -->
+            <li class="nav-item mentor-only" style="display: none;">
+                <a href="#" class="nav-link" data-page="mentee-list">
+                    <i class="fas fa-users"></i>
+                    <span>Mentee List</span>
+                </a>
+            </li>
+            <li class="nav-item mentor-only" style="display: none;">
+                <a href="#" class="nav-link" data-page="assign-tasks">
+                    <i class="fas fa-tasks"></i>
+                    <span>Assign Tasks</span>
+                </a>
+            </li>
+            <!-- Mentee-only items -->
+            <li class="nav-item mentee-only" style="display: none;">
+                <a href="#" class="nav-link" data-page="assignments">
+                    <i class="fas fa-book"></i>
+                    <span>Assignments</span>
+                </a>
+            </li>
+            <li class="nav-item mentee-only" style="display: none;">
+                <a href="#" class="nav-link" data-page="submit-work">
+                    <i class="fas fa-upload"></i>
+                    <span>Submit Work</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="sidebar-footer">
+        <div class="user-info">
+            <img src="../assets/default-avatar.png" alt="User Avatar" class="user-avatar">
+            <div class="user-details">
+                <span class="user-name">User Name</span>
+                <span class="user-role">Role</span>
+            </div>
+        </div>
+        <button id="logoutBtn" class="btn btn-outline">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </button>
+    </div>
+</nav>
+
+<!-- Top Navigation -->
+<header class="top-nav">
+    <div class="top-nav-content">
+        <button id="sidebarToggle" class="sidebar-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search...">
+        </div>
+        <div class="top-nav-right">
+            <div class="notifications">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">3</span>
+            </div>
+            <div class="settings">
+                <i class="fas fa-cog"></i>
             </div>
         </div>
     </div>
-</nav>
+</header>
 
 <style>
     .navbar {

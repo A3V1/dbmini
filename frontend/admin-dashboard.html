@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Mentor-Mentee Portal</title>
+    <title>Admin Dashboard - Mentor-Mentee Management System</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Include Chart.js for analytics -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -282,123 +283,144 @@
 </head>
 <body>
     <!-- Include Navigation -->
-    <div id="nav-placeholder"></div>
+    <div id="navigation"></div>
 
-    <div class="container">
-        <!-- Quick Stats -->
-        <div class="grid grid-4">
-            <div class="card blue">
-                <div class="stat-card">
-                    <div class="stat-icon">👥</div>
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <!-- Dashboard Header -->
+            <div class="dashboard-header">
+                <div class="header-left">
+                    <h1>Admin Dashboard</h1>
+                    <p class="admin-privilege" id="adminPrivilege">Full Access</p>
+                </div>
+                <div class="header-right">
+                    <div class="date-time">
+                        <div class="date-box">
+                            <i class="fas fa-calendar"></i>
+                            <span id="currentDate"></span>
+                        </div>
+                        <div class="time-box">
+                            <i class="fas fa-clock"></i>
+                            <span id="currentTime"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="stats-grid">
+                <div class="stat-card primary">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
                     <div class="stat-content">
                         <h3>Total Users</h3>
-                        <p class="stat-number" id="total-users">Loading...</p>
+                        <p id="totalUsers">0</p>
+                        <div class="stat-breakdown">
+                            <span id="activeUsers">0 Active</span>
+                            <span id="inactiveUsers">0 Inactive</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card orange">
-                <div class="stat-card">
-                    <div class="stat-icon">👨‍🏫</div>
+                <div class="stat-card success">
+                    <div class="stat-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
                     <div class="stat-content">
-                        <h3>Active Mentors</h3>
-                        <p class="stat-number" id="active-mentors">Loading...</p>
+                        <h3>Mentors</h3>
+                        <p id="totalMentors">0</p>
+                        <div class="stat-breakdown">
+                            <span id="departmentCount">0 Departments</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card cyan">
-                <div class="stat-card">
-                    <div class="stat-icon">👨‍🎓</div>
+                <div class="stat-card info">
+                    <div class="stat-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
                     <div class="stat-content">
-                        <h3>Active Mentees</h3>
-                        <p class="stat-number" id="active-mentees">Loading...</p>
+                        <h3>Mentees</h3>
+                        <p id="totalMentees">0</p>
+                        <div class="stat-breakdown">
+                            <span id="averageAttendance">0% Avg. Attendance</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card orange">
-                <div class="stat-card">
-                    <div class="stat-icon">🎯</div>
+                <div class="stat-card warning">
+                    <div class="stat-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
                     <div class="stat-content">
-                        <h3>Total Meetings</h3>
-                        <p class="stat-number" id="total-meetings">Loading...</p>
+                        <h3>Alerts</h3>
+                        <p id="pendingAlerts">0</p>
+                        <div class="stat-breakdown">
+                            <span id="resolvedAlerts">0 Resolved</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- System Analytics -->
-        <div class="grid grid-2">
-            <!-- User Activity Chart -->
-            <div class="card">
-                <div class="card-header">
-                    <h2>User Activity</h2>
-                    <select class="form-input" style="width: auto;" onchange="updateActivityChart(this.value)">
-                        <option value="daily">Daily</option>
-                        <option value="weekly">Weekly</option>
-                        <option value="monthly">Monthly</option>
-                    </select>
-                </div>
-                <canvas id="activityChart"></canvas>
             </div>
 
-            <!-- Meeting Statistics -->
-            <div class="card">
-                <div class="card-header">
-                    <h2>Meeting Statistics</h2>
+            <!-- Main Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Recent Activity -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-history"></i> Recent Activity</h2>
+                        <a href="logs.html" class="view-all">View All</a>
+                    </div>
+                    <div class="activity-list scrollable" id="recentActivity">
+                        <!-- Activity items will be populated by JavaScript -->
+                    </div>
                 </div>
-                <canvas id="meetingChart"></canvas>
-            </div>
-        </div>
 
-        <!-- Recent Activity and Alerts -->
-        <div class="grid grid-2">
-            <!-- Recent Activity Log -->
-            <div class="card">
-                <div class="card-header">
-                    <h2>Recent Activity</h2>
-                    <button class="btn btn-outline" onclick="viewAllActivity()">View All</button>
-                </div>
-                <div class="activity-log" id="activity-log">
-                    <!-- Activity log entries will be loaded here -->
+                <!-- Department Overview -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-building"></i> Departments</h2>
+                    </div>
+                    <div class="department-stats" id="departmentStats">
+                        <!-- Department stats will be populated by JavaScript -->
+                    </div>
+                    <canvas id="departmentChart" height="200"></canvas>
                 </div>
             </div>
 
             <!-- Emergency Alerts -->
-            <div class="card">
+            <div class="dashboard-card">
                 <div class="card-header">
-                    <h2>Emergency Alerts</h2>
-                    <span class="badge badge-danger" id="alert-count">0</span>
+                    <h2><i class="fas fa-bell"></i> Emergency Alerts</h2>
+                    <div class="header-actions">
+                        <select id="alertFilter" class="alert-filter">
+                            <option value="all">All Alerts</option>
+                            <option value="pending">Pending</option>
+                            <option value="resolved">Resolved</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="alerts-list" id="alerts-list">
-                    <!-- Emergency alerts will be loaded here -->
+                <div class="alerts-grid" id="emergencyAlerts">
+                    <!-- Alerts will be populated by JavaScript -->
                 </div>
             </div>
-        </div>
 
-        <!-- User Management -->
-        <div class="card mt-4">
-            <div class="card-header">
-                <h2>User Management</h2>
-                <div>
-                    <button class="btn btn-outline mr-2" onclick="exportUserData()">Export Data</button>
-                    <button class="btn btn-primary" onclick="showAddUserModal()">Add User</button>
-                </div>
-            </div>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Role</th>
-                            <th>Email</th>
-                            <th>Status</th>
-                            <th>Last Active</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="users-table">
-                        <!-- User entries will be loaded here -->
-                    </tbody>
-                </table>
+            <!-- Quick Actions -->
+            <div class="quick-actions-grid">
+                <button class="action-btn" onclick="location.href='users.html'">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Add New User</span>
+                </button>
+                <button class="action-btn" onclick="location.href='departments.html'">
+                    <i class="fas fa-building"></i>
+                    <span>Manage Departments</span>
+                </button>
+                <button class="action-btn" onclick="location.href='announcements.html'">
+                    <i class="fas fa-bullhorn"></i>
+                    <span>Send Announcement</span>
+                </button>
+                <button class="action-btn" onclick="location.href='reports.html'">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Generate Reports</span>
+                </button>
             </div>
         </div>
     </div>
@@ -490,192 +512,207 @@
     fetch('components/navigation.html')
         .then(response => response.text())
         .then(data => {
-            document.getElementById('nav-placeholder').innerHTML = data;
+            document.getElementById('navigation').innerHTML = data;
         });
 
-    // Sample data - Replace with actual API calls
-    const stats = {
-        totalUsers: 27,
-        activeUsers: 25,
-        totalMentors: 5,
-        activeMentors: 5,
-        totalMentees: 20,
-        activeMentees: 18,
-        totalMeetings: 45
-    };
+    // Update date and time
+    function updateDateTime() {
+        const now = new Date();
+        document.getElementById('currentDate').textContent = now.toLocaleDateString();
+        document.getElementById('currentTime').textContent = now.toLocaleTimeString();
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
 
-    const activityLog = [
-        {
-            id: 1,
-            user: "John Doe",
-            action: "Logged in",
-            timestamp: "2025-03-11 09:15:00",
-            ip: "192.168.0.1"
-        },
-        // Add more activity logs
-    ];
+    // Update admin privilege
+    function updateAdminInfo() {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const adminData = JSON.parse(localStorage.getItem('admin'));
+        if (currentUser && adminData) {
+            const adminInfo = adminData.find(a => a.unique_user_no === currentUser.unique_user_no);
+            if (adminInfo) {
+                document.getElementById('adminPrivilege').textContent = adminInfo.privilege;
+            }
+        }
+    }
+    updateAdminInfo();
 
-    const emergencyAlerts = [
-        {
-            id: 1,
-            reason: "Mentee reported feeling unwell during a meeting",
-            status: "pending",
-            timestamp: "2025-03-11 10:30:00"
-        },
-        // Add more alerts
-    ];
+    // Update statistics
+    function updateStatistics() {
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const mentors = JSON.parse(localStorage.getItem('mentors')) || [];
+        const mentees = JSON.parse(localStorage.getItem('mentees')) || [];
+        const menteeAcademics = JSON.parse(localStorage.getItem('mentee_academics')) || [];
+        const alerts = JSON.parse(localStorage.getItem('emergency_alerts')) || [];
 
-    const users = [
-        {
-            name: "John Doe",
-            role: "mentor",
-            email: "john@example.com",
-            status: "active",
-            lastActive: "2025-03-11 09:15:00"
-        },
-        // Add more users
-    ];
+        // Update user stats
+        document.getElementById('totalUsers').textContent = users.length;
+        document.getElementById('activeUsers').textContent = `${users.length} Active`;
+        document.getElementById('inactiveUsers').textContent = '0 Inactive';
 
-    // Initialize charts
-    document.addEventListener('DOMContentLoaded', function() {
-        loadStats();
-        loadActivityLog();
-        loadEmergencyAlerts();
-        loadUsers();
-        initializeCharts();
+        // Update mentor stats
+        document.getElementById('totalMentors').textContent = mentors.length;
+        const departments = [...new Set(mentors.map(m => m.department))];
+        document.getElementById('departmentCount').textContent = `${departments.length} Departments`;
+
+        // Update mentee stats
+        document.getElementById('totalMentees').textContent = mentees.length;
+        const avgAttendance = menteeAcademics.reduce((acc, curr) => acc + curr.attendance, 0) / menteeAcademics.length;
+        document.getElementById('averageAttendance').textContent = `${avgAttendance.toFixed(1)}% Avg. Attendance`;
+
+        // Update alerts stats
+        const pendingAlerts = alerts.filter(a => a.alert_status === 'pending').length;
+        const resolvedAlerts = alerts.filter(a => a.alert_status === 'resolved').length;
+        document.getElementById('pendingAlerts').textContent = pendingAlerts;
+        document.getElementById('resolvedAlerts').textContent = `${resolvedAlerts} Resolved`;
+
+        // Update department stats
+        updateDepartmentStats(departments, mentors, mentees);
+    }
+    updateStatistics();
+
+    // Update recent activity
+    function updateRecentActivity() {
+        const activityLogs = JSON.parse(localStorage.getItem('activity_logs')) || [];
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        
+        const activityList = document.getElementById('recentActivity');
+        activityList.innerHTML = activityLogs.map(log => {
+            const user = users.find(u => u.unique_user_no === log.user_id);
+            return `
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-user-clock"></i>
+                    </div>
+                    <div class="activity-content">
+                        <p><strong>${user ? user.official_mail_id : 'Unknown User'}</strong> ${log.activity}</p>
+                        <div class="activity-meta">
+                            <span class="activity-time">${new Date(log.log_time).toLocaleString()}</span>
+                            <span class="activity-ip">${log.ip_address}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+    updateRecentActivity();
+
+    // Update emergency alerts
+    function updateEmergencyAlerts() {
+        const alerts = JSON.parse(localStorage.getItem('emergency_alerts')) || [];
+        const communications = JSON.parse(localStorage.getItem('communications')) || [];
+        
+        const alertsGrid = document.getElementById('emergencyAlerts');
+        alertsGrid.innerHTML = alerts.map(alert => {
+            const comm = communications.find(c => c.communication_id === alert.comm_id);
+            return `
+                <div class="alert-card ${alert.alert_status}">
+                    <div class="alert-icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="alert-content">
+                        <h3>${alert.alert_reason}</h3>
+                        <p>${comm ? comm.message_content : 'No message content'}</p>
+                        <div class="alert-meta">
+                            <span class="alert-status">${alert.alert_status}</span>
+                            <button class="btn-resolve" onclick="resolveAlert(${alert.alert_id})">
+                                ${alert.alert_status === 'pending' ? 'Resolve' : 'Resolved'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+    updateEmergencyAlerts();
+
+    // Update department statistics
+    function updateDepartmentStats(departments, mentors, mentees) {
+        const departmentStats = document.getElementById('departmentStats');
+        const stats = departments.map(dept => {
+            const deptMentors = mentors.filter(m => m.department === dept);
+            const deptMentees = mentees.filter(m => 
+                deptMentors.some(dm => dm.mentor_id === m.mentor_id)
+            );
+            
+            return {
+                department: dept,
+                mentors: deptMentors.length,
+                mentees: deptMentees.length
+            };
+        });
+
+        departmentStats.innerHTML = stats.map(stat => `
+            <div class="dept-stat-item">
+                <h4>${stat.department}</h4>
+                <div class="dept-stat-numbers">
+                    <span>${stat.mentors} Mentors</span>
+                    <span>${stat.mentees} Mentees</span>
+                </div>
+            </div>
+        `).join('');
+
+        // Update department chart
+        const ctx = document.getElementById('departmentChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: stats.map(s => s.department),
+                datasets: [
+                    {
+                        label: 'Mentors',
+                        data: stats.map(s => s.mentors),
+                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                        borderColor: 'rgb(54, 162, 235)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Mentees',
+                        data: stats.map(s => s.mentees),
+                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    // Alert filter handler
+    document.getElementById('alertFilter').addEventListener('change', function(e) {
+        const status = e.target.value;
+        const alerts = document.querySelectorAll('.alert-card');
+        
+        alerts.forEach(alert => {
+            if (status === 'all' || alert.classList.contains(status)) {
+                alert.style.display = 'flex';
+            } else {
+                alert.style.display = 'none';
+            }
+        });
     });
 
-    function loadStats() {
-        document.getElementById('total-users').textContent = stats.totalUsers;
-        document.getElementById('active-mentors').textContent = stats.activeMentors;
-        document.getElementById('active-mentees').textContent = stats.activeMentees;
-        document.getElementById('total-meetings').textContent = stats.totalMeetings;
-    }
-
-    function loadActivityLog() {
-        const logContainer = document.getElementById('activity-log');
-        logContainer.innerHTML = activityLog.map(log => `
-            <div class="activity-item">
-                <div class="flex justify-between">
-                    <strong>${log.user}</strong>
-                    <span class="activity-time">${log.timestamp}</span>
-                </div>
-                <div>${log.action}</div>
-                <div class="text-light">IP: ${log.ip}</div>
-            </div>
-        `).join('');
-    }
-
-    function loadEmergencyAlerts() {
-        const alertsContainer = document.getElementById('alerts-list');
-        const pendingAlerts = emergencyAlerts.filter(alert => alert.status === 'pending');
-        
-        document.getElementById('alert-count').textContent = pendingAlerts.length;
-        
-        alertsContainer.innerHTML = emergencyAlerts.map(alert => `
-            <div class="alert-item">
-                <div>
-                    <div>${alert.reason}</div>
-                    <div class="activity-time">${alert.timestamp}</div>
-                </div>
-                <div>
-                    <span class="badge ${alert.status === 'pending' ? 'badge-danger' : 'badge-success'}">${alert.status}</span>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    function loadUsers() {
-        const usersContainer = document.getElementById('users-table');
-        usersContainer.innerHTML = users.map(user => `
-            <tr>
-                <td>${user.name}</td>
-                <td><span class="badge badge-primary">${user.role}</span></td>
-                <td>${user.email}</td>
-                <td><span class="badge ${user.status === 'active' ? 'badge-success' : 'badge-warning'}">${user.status}</span></td>
-                <td>${user.lastActive}</td>
-                <td>
-                    <button class="btn btn-outline btn-sm" onclick="editUser('${user.email}')">Edit</button>
-                    <button class="btn btn-danger btn-sm" onclick="deactivateUser('${user.email}')">Deactivate</button>
-                </td>
-            </tr>
-        `).join('');
-    }
-
-    function initializeCharts() {
-        // User Activity Chart
-        const activityCtx = document.getElementById('activityChart').getContext('2d');
-        new Chart(activityCtx, {
-            type: 'line',
-            data: {
-                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                datasets: [{
-                    label: 'Active Users',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1
-                }]
+    // Resolve alert function
+    function resolveAlert(alertId) {
+        const alerts = JSON.parse(localStorage.getItem('emergency_alerts'));
+        const updatedAlerts = alerts.map(alert => {
+            if (alert.alert_id === alertId) {
+                return { ...alert, alert_status: 'resolved' };
             }
+            return alert;
         });
-
-        // Meeting Statistics Chart
-        const meetingCtx = document.getElementById('meetingChart').getContext('2d');
-        new Chart(meetingCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Scheduled', 'Completed', 'Cancelled'],
-                datasets: [{
-                    data: [30, 50, 20],
-                    backgroundColor: [
-                        'rgb(54, 162, 235)',
-                        'rgb(75, 192, 192)',
-                        'rgb(255, 99, 132)'
-                    ]
-                }]
-            }
-        });
-    }
-
-    // Modal functions
-    function showAddUserModal() {
-        document.getElementById('add-user-modal').style.display = 'flex';
-    }
-
-    function closeModal() {
-        document.getElementById('add-user-modal').style.display = 'none';
-    }
-
-    // User management functions
-    function handleAddUser(event) {
-        event.preventDefault();
-        // Implement user creation logic
-        alert('User added successfully!');
-        closeModal();
-    }
-
-    function editUser(email) {
-        // Implement edit user logic
-        alert('Edit user: ' + email);
-    }
-
-    function deactivateUser(email) {
-        // Implement deactivate user logic
-        alert('Deactivate user: ' + email);
-    }
-
-    function exportUserData() {
-        // Implement export functionality
-        alert('Exporting user data...');
-    }
-
-    function viewAllActivity() {
-        // Implement view all activity logic
-        alert('Viewing all activity...');
-    }
-
-    function updateActivityChart(timeframe) {
-        // Implement chart update logic
-        alert('Updating chart for ' + timeframe + ' view');
+        
+        localStorage.setItem('emergency_alerts', JSON.stringify(updatedAlerts));
+        updateEmergencyAlerts();
+        updateStatistics();
     }
     </script>
 </body>

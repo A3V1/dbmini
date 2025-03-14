@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mentee Dashboard</title>
+    <title>Mentee Dashboard - Mentor-Mentee Management System</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -246,66 +248,204 @@
         }
     </style>
 </head>
-<body>
-    <nav class="navbar">
-        <div class="navbar-content">
-            <div class="nav-links">
-                <a href="mentee-dashboard.html" class="nav-link">Dashboard</a>
-                <a href="student-profile.html" class="nav-link" data-feature="student_profile">Profile</a>
-                <a href="achievements.html" class="nav-link" data-feature="achievements">Achievements</a>
-                <a href="meeting-schedule.html" class="nav-link" data-feature="meeting_schedule">Meetings</a>
-                <button id="logoutBtn" class="btn btn-danger">Logout</button>
+<body class="dashboard-layout">
+    <!-- Include navigation component -->
+    <div id="navigation-container"></div>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <h1>Mentee Dashboard</h1>
+                <div class="mentee-info">
+                    <span id="mentee-name"></span>
+                    <span id="mentee-department"></span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="date-time">
+                    <div class="date-box">
+                        <i class="fas fa-calendar"></i>
+                        <span id="current-date"></span>
+                    </div>
+                    <div class="time-box">
+                        <i class="fas fa-clock"></i>
+                        <span id="current-time"></span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+            <!-- Quick Stats -->
+            <section class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-card primary">
+                        <div class="stat-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Achievements</h3>
+                            <div class="stat-number" id="total-achievements">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card success">
+                        <div class="stat-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Completed Tasks</h3>
+                            <div class="stat-number" id="completed-tasks">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card info">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Upcoming Meetings</h3>
+                            <div class="stat-number" id="upcoming-meetings">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card warning">
+                        <div class="stat-icon">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Pending Tasks</h3>
+                            <div class="stat-number" id="pending-tasks">0</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Mentor Information -->
+                <section class="dashboard-section mentor-info">
+                    <div class="section-header">
+                        <h2>My Mentor</h2>
+                    </div>
+                    <div class="mentor-card" id="mentor-card"></div>
+                </section>
+
+                <!-- Task Management -->
+                <section class="dashboard-section task-management">
+                    <div class="section-header">
+                        <h2>My Tasks</h2>
+                        <select id="task-filter" class="filter-select">
+                            <option value="all">All Tasks</option>
+                            <option value="pending">Pending</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                    <div class="task-list scrollable" id="task-list"></div>
+                </section>
+
+                <!-- Progress Tracking -->
+                <section class="dashboard-section progress-tracking">
+                    <div class="section-header">
+                        <h2>My Progress</h2>
+                        <select id="progress-period" class="filter-select">
+                            <option value="week">This Week</option>
+                            <option value="month">This Month</option>
+                            <option value="semester">This Semester</option>
+                        </select>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="progress-chart"></canvas>
+                    </div>
+                </section>
+
+                <!-- Upcoming Meetings -->
+                <section class="dashboard-section meetings">
+                    <div class="section-header">
+                        <h2>Upcoming Meetings</h2>
+                        <button class="btn-primary" id="request-meeting">
+                            <i class="fas fa-calendar-plus"></i> Request Meeting
+                        </button>
+                    </div>
+                    <div class="meeting-list scrollable" id="meeting-list"></div>
+                </section>
+
+                <!-- Achievements -->
+                <section class="dashboard-section achievements">
+                    <div class="section-header">
+                        <h2>My Achievements</h2>
+                    </div>
+                    <div class="achievement-list scrollable" id="achievement-list"></div>
+                </section>
+
+                <!-- Recent Communications -->
+                <section class="dashboard-section communications">
+                    <div class="section-header">
+                        <h2>Communications</h2>
+                        <button class="btn-primary" id="new-message">
+                            <i class="fas fa-paper-plane"></i> New Message
+                        </button>
+                    </div>
+                    <div class="communication-list scrollable" id="communication-list"></div>
+                </section>
             </div>
         </div>
-    </nav>
+    </main>
 
-    <div class="dashboard-container">
-        <h1 class="dashboard-title">Mentee Dashboard</h1>
-        
-        <div class="stats-grid">
-            <div class="card" id="totalAchievements">
-                <div class="feature-icon">🏆</div>
-                <h3 class="value">0</h3>
-                <p class="label">My Achievements</p>
+    <!-- Modals -->
+    <div class="modal" id="meeting-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Request Meeting</h2>
+                <button class="close-modal">&times;</button>
             </div>
-            <div class="card" id="attendance">
-                <div class="feature-icon">📊</div>
-                <h3 class="value">0%</h3>
-                <p class="label">Attendance</p>
-            </div>
-            <div class="card" id="academicStatus">
-                <div class="feature-icon">📚</div>
-                <h3 class="value">Good</h3>
-                <p class="label">Academic Status</p>
-            </div>
-            <div class="card" id="unreadMessages">
-                <div class="feature-icon">📫</div>
-                <h3 class="value">0</h3>
-                <p class="label">Unread Messages</p>
-            </div>
-        </div>
-
-        <div class="feature-grid">
-            <div class="card" data-feature="achievements">
-                <div class="card-header">
-                    <h2>Recent Achievements</h2>
-                </div>
-                <div id="achievementsList" class="card-body">
-                    <!-- Achievements will be loaded here -->
-                </div>
-            </div>
-            
-            <div class="card" data-feature="meeting_schedule">
-                <div class="card-header">
-                    <h2>Upcoming Meetings</h2>
-                </div>
-                <div id="upcomingMeetings" class="card-body">
-                    <!-- Meetings will be loaded here -->
-                </div>
+            <div class="modal-body">
+                <form id="meeting-form">
+                    <div class="form-group">
+                        <label for="meeting-title">Meeting Title</label>
+                        <input type="text" id="meeting-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="meeting-date">Preferred Date</label>
+                        <input type="date" id="meeting-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="meeting-time">Preferred Time</label>
+                        <input type="time" id="meeting-time" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="meeting-agenda">Agenda</label>
+                        <textarea id="meeting-agenda" required></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="closeModal('meeting-modal')">Cancel</button>
+                        <button type="submit" class="btn-primary">Request Meeting</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
-    <script src="js/main.js"></script>
+    <div class="modal" id="message-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>New Message</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="message-form">
+                    <div class="form-group">
+                        <label for="message-content">Message</label>
+                        <textarea id="message-content" required></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="closeModal('message-modal')">Cancel</button>
+                        <button type="submit" class="btn-primary">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/navigation.js"></script>
+    <script src="js/mentee-dashboard.js"></script>
 </body>
 </html>
