@@ -302,8 +302,7 @@
         const modal = document.getElementById('meeting-modal');
         if (dateInfo) {
             document.getElementById('meeting-date').value = dateInfo.startStr.split('T')[0];
-            const timePart = dateInfo.startStr.split('T')[1];
-            document.getElementById('meeting-time').value = timePart ? timePart.slice(0, 5) : '';
+            document.getElementById('meeting-time').value = dateInfo.startStr.split('T')[1]?.slice(0, 5) || '';
         }
         modal.style.display = 'flex';
     }
@@ -352,7 +351,7 @@
     function rejectMeeting(id) {
         // Implement reject meeting logic
         alert('Reject meeting ' + id);
-        }
+    }
     </script>
 </body>
 </html>

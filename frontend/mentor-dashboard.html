@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mentor Dashboard - Mentor-Mentee Management System</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/dashboard-shared.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -213,6 +214,55 @@
             background-color: var(--orange-light);
         }
         
+        /* Badge styles */
+        .badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            margin-right: 4px;
+        }
+        
+        .badge-primary { background-color: var(--primary-color); }
+        .badge-success { background-color: #4CAF50; }
+        .badge-info { background-color: #2196F3; }
+        .badge-warning { background-color: #FF9800; }
+        .badge-danger { background-color: #F44336; }
+        
+        /* Tabs for mentee details */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 16px;
+        }
+        
+        .tab-item {
+            padding: 10px 16px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-item:hover {
+            color: var(--primary-color);
+        }
+        
+        .tab-item.active {
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 16px 0;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
         @media (max-width: 768px) {
             .dashboard-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -306,11 +356,20 @@
                 <section class="dashboard-section mentee-list">
                     <div class="section-header">
                         <h2>My Mentees</h2>
-                        <button class="btn-primary" id="add-mentee">
-                            <i class="fas fa-plus"></i> Add Mentee
-                        </button>
+                        <div class="filter-controls">
+                            <select id="mentee-filter" class="select-filter">
+                                <option value="all">All Mentees</option>
+                                <option value="excellent">Excellent</option>
+                                <option value="good">Good</option>
+                                <option value="average">Average</option>
+                                <option value="poor">Poor</option>
+                            </select>
+                            <button class="btn-primary" id="add-mentee">
+                                <i class="fas fa-plus"></i> Add Mentee
+                            </button>
+                        </div>
                     </div>
-                    <div class="mentee-grid" id="mentee-list"></div>
+                    <div class="mentee-grid scrollable" id="mentee-list"></div>
                 </section>
 
                 <!-- Task Management -->
@@ -362,14 +421,113 @@
                 <section class="dashboard-section communications">
                     <div class="section-header">
                         <h2>Recent Communications</h2>
+                        <button class="btn-primary" id="new-message">
+                            <i class="fas fa-paper-plane"></i> New Message
+                        </button>
                     </div>
                     <div class="communication-list scrollable" id="communication-list"></div>
+                </section>
+
+                <!-- Emergency Alerts -->
+                <section class="dashboard-section emergency-alerts">
+                    <div class="section-header">
+                        <h2>Emergency Alerts</h2>
+                    </div>
+                    <div class="alert-list scrollable" id="alert-list">
+                        <!-- Alert items will be added here by JavaScript -->
+                    </div>
                 </section>
             </div>
         </div>
     </main>
 
     <!-- Modals -->
+    <div class="modal" id="mentee-details-modal">
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h2>Mentee Details</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="mentee-profile">
+                    <div class="mentee-profile-header">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user-graduate fa-3x"></i>
+                        </div>
+                        <div class="profile-info">
+                            <h3 id="profile-name"></h3>
+                            <p id="profile-course"></p>
+                            <div class="profile-badges">
+                                <span class="badge badge-primary" id="profile-year"></span>
+                                <span class="badge" id="profile-status"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tabs">
+                        <div class="tab-item active" data-tab="academic">Academic Information</div>
+                        <div class="tab-item" data-tab="achievements">Achievements</div>
+                        <div class="tab-item" data-tab="communications">Communications</div>
+                        <div class="tab-item" data-tab="meetings">Meetings</div>
+                    </div>
+                    
+                    <div id="academic" class="tab-content active">
+                        <div class="academic-stats">
+                            <div class="stat-box">
+                                <h4>Attendance</h4>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" id="attendance-bar"></div>
+                                </div>
+                                <p id="attendance-value"></p>
+                            </div>
+                            <div class="stat-box">
+                                <h4>Academic Background</h4>
+                                <p id="academic-background"></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="achievements" class="tab-content">
+                        <div class="achievement-list" id="mentee-achievements">
+                            <!-- Achievements will be populated by JavaScript -->
+                        </div>
+                        <div class="achievement-actions">
+                            <button class="btn-primary" id="award-achievement">
+                                <i class="fas fa-trophy"></i> Award New Achievement
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="communications" class="tab-content">
+                        <div class="communication-list" id="mentee-communications">
+                            <!-- Communications will be populated by JavaScript -->
+                        </div>
+                        <div class="communication-actions">
+                            <button class="btn-primary" id="send-message">
+                                <i class="fas fa-paper-plane"></i> Send Message
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="meetings" class="tab-content">
+                        <div class="meeting-list" id="mentee-meetings">
+                            <!-- Meetings will be populated by JavaScript -->
+                        </div>
+                        <div class="meeting-actions">
+                            <button class="btn-primary" id="schedule-mentee-meeting">
+                                <i class="fas fa-calendar-plus"></i> Schedule Meeting
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('mentee-details-modal')">Close</button>
+                <button class="btn-primary" id="save-mentee-details">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
     <div class="modal" id="task-modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -440,7 +598,129 @@
         </div>
     </div>
 
+    <div class="modal" id="message-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>New Message</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="message-form">
+                    <div class="form-group">
+                        <label for="message-recipient">Recipient</label>
+                        <select id="message-recipient" required></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-type">Message Type</label>
+                        <select id="message-type" required>
+                            <option value="one-to-one">Direct Message</option>
+                            <option value="feedback">Feedback</option>
+                            <option value="announcement">Announcement</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-content">Message</label>
+                        <textarea id="message-content" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-attachment">Attachment (optional)</label>
+                        <input type="file" id="message-attachment">
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="closeModal('message-modal')">Cancel</button>
+                        <button type="submit" class="btn-primary">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="achievement-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Award Achievement</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="achievement-form">
+                    <div class="form-group">
+                        <label for="achievement-mentee">Mentee</label>
+                        <select id="achievement-mentee" required></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="achievement-title">Achievement Title</label>
+                        <input type="text" id="achievement-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="achievement-description">Description</label>
+                        <textarea id="achievement-description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="achievement-badge">Select Badge</label>
+                        <div class="badge-selection" id="badge-options">
+                            <!-- Badge options will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="closeModal('achievement-modal')">Cancel</button>
+                        <button type="submit" class="btn-primary">Award Achievement</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script src="js/navigation.js"></script>
+    <script src="js/dashboard-styles.js"></script>
     <script src="js/mentor-dashboard.js"></script>
+    <script>
+        // Tab functionality
+        document.querySelectorAll('.tab-item').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                document.querySelectorAll('.tab-item').forEach(t => {
+                    t.classList.remove('active');
+                });
+                
+                // Remove active class from all tab contents
+                document.querySelectorAll('.tab-content').forEach(c => {
+                    c.classList.remove('active');
+                });
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Show corresponding tab content
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Modal functionality
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        // Close modal when clicking on close button
+        document.querySelectorAll('.close-modal').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const modal = e.target.closest('.modal');
+                closeModal(modal.id);
+            });
+        });
+        
+        // Close modal when clicking outside the modal content
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal(modal.id);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
