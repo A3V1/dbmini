@@ -76,6 +76,19 @@ body {
     color: var(--primary-color);
 }
 
+.logo-large {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    font-size: 2.8rem;
+}
+
+.logo-large .logo-img {
+    height: 120px;
+    width: auto;
+}
+
 .nav-links {
     display: flex;
     gap: 2rem;
@@ -127,6 +140,13 @@ body {
     display: flex;
     gap: 1rem;
     justify-content: center;
+}
+
+.hero-large {
+    padding: 100px 20px;
+    font-size: 1.5rem;
+    background-size: cover;
+    background-position: center;
 }
 
 /* About Section */
@@ -1477,7 +1497,7 @@ body {
 .mentee-info p {
     margin: 0;
     font-size: 0.9rem;
-    color: var(--text-muted);
+    color: var (--text-muted);
 }
 
 .progress-bar {
@@ -1996,4 +2016,4 @@ body {
     .quick-actions-grid {
         grid-template-columns: 1fr;
     }
-} 
+}
