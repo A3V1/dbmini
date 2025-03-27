@@ -430,19 +430,19 @@
             <div class="header-left">
                 <h1>Mentee Dashboard</h1>
                 <div class="mentee-info">
-                    <span id="mentee-name"></span>
-                    <span id="mentee-department"></span>
+                    <span id="mentee-name">John Doe</span> <!-- Placeholder for mentee name -->
+                    <span id="mentee-department">Computer Science</span> <!-- Placeholder for department -->
                 </div>
             </div>
             <div class="header-right">
                 <div class="date-time">
                     <div class="date-box">
                         <i class="fas fa-calendar"></i>
-                        <span id="current-date"></span>
+                        <span id="current-date">01/01/2023</span> <!-- Placeholder for current date -->
                     </div>
                     <div class="time-box">
                         <i class="fas fa-clock"></i>
-                        <span id="current-time"></span>
+                        <span id="current-time">12:00 PM</span> <!-- Placeholder for current time -->
                     </div>
                 </div>
             </div>
@@ -458,7 +458,7 @@
                         </div>
                         <div class="stat-content">
                             <h3>Achievements</h3>
-                            <div class="stat-number" id="total-achievements">0</div>
+                            <div class="stat-number" id="total-achievements"></div> <!-- Dynamically populated -->
                         </div>
                     </div>
                     <div class="stat-card success">
@@ -467,7 +467,7 @@
                         </div>
                         <div class="stat-content">
                             <h3>Completed Tasks</h3>
-                            <div class="stat-number" id="completed-tasks">0</div>
+                            <div class="stat-number" id="completed-tasks">2</div>
                         </div>
                     </div>
                     <div class="stat-card info">
@@ -476,7 +476,7 @@
                         </div>
                         <div class="stat-content">
                             <h3>Upcoming Meetings</h3>
-                            <div class="stat-number" id="upcoming-meetings">0</div>
+                            <div class="stat-number" id="upcoming-meetings">3</div>
                         </div>
                     </div>
                     <div class="stat-card warning">
@@ -485,7 +485,7 @@
                         </div>
                         <div class="stat-content">
                             <h3>Pending Tasks</h3>
-                            <div class="stat-number" id="pending-tasks">0</div>
+                            <div class="stat-number" id="pending-tasks">1</div>
                         </div>
                     </div>
                 </div>
@@ -498,7 +498,15 @@
                     <div class="section-header">
                         <h2>My Mentor</h2>
                     </div>
-                    <div class="mentor-card" id="mentor-card"></div>
+                    <div class="mentor-card" id="mentor-card">
+                        <!-- Placeholder for mentor info -->
+                        <h3>Dr. Alice Johnson</h3>
+                        <p>Department: Computer Science</p>
+                        <div class="mentor-rating">
+                            <span>Rating: 4.8</span>
+                            <i class="fas fa-star star"></i>
+                        </div>
+                    </div>
                 </section>
 
                 <!-- Task Management -->
@@ -557,7 +565,18 @@
                     <div class="section-header">
                         <h2>My Achievements</h2>
                     </div>
-                    <div class="achievement-list scrollable" id="achievement-list"></div>
+                    <div class="achievement-list scrollable" id="achievement-list">
+                        <div class="achievement-card">
+                            <h3>Top Performer</h3>
+                            <p>Awarded for outstanding performance</p>
+                            <span>15/09/2023</span> <!-- Placeholder for achievements -->
+                        </div>
+                        <div class="achievement-card">
+                            <h3>Hackathon Winner</h3>
+                            <p>Won the annual hackathon</p>
+                            <span>10/08/2023</span> <!-- Placeholder for achievements -->
+                        </div>
+                    </div>
                 </section>
 
                 <!-- Recent Communications -->
@@ -568,7 +587,22 @@
                             <i class="fas fa-paper-plane"></i> New Message
                         </button>
                     </div>
-                    <div class="communication-list scrollable" id="communication-list"></div>
+                    <div class="communication-list scrollable" id="communication-list">
+                        <div class="communication-card">
+                            <div class="comm-header">
+                                <span>Message</span>
+                                <span>01/10/2023, 10:00 AM</span> <!-- Placeholder for communication -->
+                            </div>
+                            <p>Hello, how are you?</p>
+                        </div>
+                        <div class="communication-card">
+                            <div class="comm-header">
+                                <span>Reply</span>
+                                <span>01/10/2023, 10:05 AM</span> <!-- Placeholder for communication -->
+                            </div>
+                            <p>I am good, thank you!</p>
+                        </div>
+                    </div>
                 </section>
             </div>
         </div>
@@ -744,13 +778,16 @@
 
     <script src="js/navigation.js"></script>
     <script src="js/dashboard-styles.js"></script>
-    <script src="js/mentee-dashboard.js"></script>
+   <!--<script src="js/mentee-dashboard.js"></script>--> 
     
     <script>
         // Add emergency meeting button handler
         document.getElementById('request-emergency-meeting').addEventListener('click', () => {
             meetingManager.showMeetingModal(true);
         });
+
+        // Dynamically populate total achievements
+        document.getElementById('total-achievements').textContent = 2; // Replace 2 with dynamic data as needed
     </script>
 </body>
 </html>

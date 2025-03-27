@@ -279,6 +279,71 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        .common-features {
+            width: 560px; /* Extra wide for better content display */
+            background: var(--background-color);
+            padding: 32px; /* More breathing room */
+            border-radius: 16px; /* Softer, modern rounded corners */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Deeper shadow for depth */
+            position: absolute;
+            right: 32px; /* Pushed further from the edge */
+            top: 140px; /* Slightly lower for better alignment */
+            z-index: 20; /* Higher z-index to ensure prominence */
+            border: 1px solid rgba(0, 0, 0, 0.05); /* Subtle border for definition */
+        }
+        
+        .common-features h2 {
+            font-size: 28px; /* Bigger heading */
+            margin-bottom: 28px; /* More space below title */
+            color: var(--primary-color);
+            font-weight: 700; /* Extra bold for impact */
+            letter-spacing: -0.5px; /* Slightly tighter letters for modern look */
+        }
+        
+        .common-features .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .common-features .feature-item {
+            margin-bottom: 24px; /* Bigger gap between items */
+        }
+        
+        .common-features .feature-link {
+            display: flex;
+            align-items: center;
+            gap: 20px; /* Wider spacing between icon and text */
+            padding: 20px 24px; /* More padding for a chunkier feel */
+            border-radius: 12px; /* Extra rounded for a soft look */
+            color: var(--primary-color);
+            text-decoration: none;
+            background: white;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother animation */
+            font-size: 20px; /* Larger text for readability */
+            font-weight: 500; /* Slightly bolder text */
+        }
+        
+        .common-features .feature-link:hover {
+            background-color: var(--blue-light);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px); /* More noticeable lift */
+            color: var(--primary-dark); /* Slightly darker on hover */
+        }
+        
+        .common-features .feature-link i {
+            font-size: 4.5rem; /* Massive icons */
+            min-width: 72px; /* Fixed width for alignment */
+            text-align: center;
+            color: var(--primary-color); /* Optional: Make icons match theme */
+            transition: transform 0.3s ease; /* Add icon animation */
+        }
+        
+        .common-features .feature-link:hover i {
+            transform: scale(1.05); /* Slight icon grow on hover */
+        }
     </style>
 </head>
 <body>
@@ -461,50 +526,30 @@
         </div>
     </div>
 
-    <!-- Add this section after the main dashboard content but before the closing container div -->
-    <div class="section mt-4">
-        <h2 class="section-title">Common Features</h2>
-        <div class="grid grid-4">
-            <!-- Meeting Schedule Card -->
-            <div class="card feature-card" data-feature="meeting_schedule">
-                <div>
-                    <i class="fas fa-calendar-alt icon-lg"></i>
-                    <h3>Meeting Schedule</h3>
-                    <p>View and manage all scheduled meetings</p>
-                </div>
-                <a href="meeting-schedule.html" class="btn btn-primary">Access</a>
-            </div>
-            
-            <!-- Student Profile Card -->
-            <div class="card feature-card" data-feature="student_profile">
-                <div>
-                    <i class="fas fa-user-graduate icon-lg"></i>
-                    <h3>Student Profiles</h3>
-                    <p>View detailed student information</p>
-                </div>
-                <a href="student-profile.html" class="btn btn-primary">Access</a>
-            </div>
-            
-            <!-- Communication Hub Card -->
-            <div class="card feature-card" data-feature="communication_hub">
-                <div>
-                    <i class="fas fa-comments icon-lg"></i>
-                    <h3>Communication Hub</h3>
-                    <p>Messages, alerts, and broadcasts</p>
-                </div>
-                <a href="communication-hub.html" class="btn btn-primary">Access</a>
-            </div>
-            
-            <!-- Reports Card -->
-            <div class="card feature-card" data-feature="reports">
-                <div>
-                    <i class="fas fa-chart-bar icon-lg"></i>
-                    <h3>Reports</h3>
-                    <p>Generate and view system reports</p>
-                </div>
-                <a href="reports.html" class="btn btn-primary">Access</a>
-            </div>
-        </div>
+    <div class="common-features">
+        <h2>Common Features</h2>
+        <ul class="feature-list">
+            <li class="feature-item">
+                <a href="meeting-schedule.html" class="feature-link">
+                    <i class="fas fa-calendar-alt"></i> Meeting Schedule
+                </a>
+            </li>
+            <li class="feature-item">
+                <a href="student-profile.html" class="feature-link">
+                    <i class="fas fa-user-graduate"></i> Student Profiles
+                </a>
+            </li>
+            <li class="feature-item">
+                <a href="communication-hub.html" class="feature-link">
+                    <i class="fas fa-comments"></i> Communication Hub
+                </a>
+            </li>
+            <li class="feature-item">
+                <a href="reports.html" class="feature-link">
+                    <i class="fas fa-chart-bar"></i> Reports & Achievements
+                </a>
+            </li>
+        </ul>
     </div>
 
     <script>

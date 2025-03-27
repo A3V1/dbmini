@@ -1,175 +1,129 @@
+//mit-wpu login page
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select Role - Mentor-Mentee Management System</title>
+    <title>My MIT WPU Login</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             margin: 0;
-            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
             font-family: Arial, sans-serif;
         }
-        
-        .role-container {
-            max-width: 800px;
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             width: 100%;
-            padding: 30px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            text-align: center;
         }
-        
-        .logo {
-            margin-bottom: 30px;
-        }
-        
-        .logo h1 {
-            color: var(--primary-color);
-            margin-bottom: 5px;
-            font-size: 2.5rem;
-            font-weight: 700;
-        }
-        
-        .logo h2 {
-            color: var(--secondary-color);
-            margin-top: 0;
-            font-size: 1.5rem;
-            font-weight: 500;
-        }
-        
-        .role-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 30px;
-        }
-        
-        .role-card {
-            background: var(--background-light);
+        .login-box {
+            background: #0d47a1;
             padding: 20px;
             border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+            text-align: center;
+            color: white;
+            width: 350px;
         }
-        
-        .role-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-color);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .role-icon {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-        }
-        
-        .role-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text-color);
+        .logo {
+            width: 80px;
             margin-bottom: 10px;
         }
-        
-        .role-description {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 15px;
+        h2 {
+            margin-bottom: 20px;
         }
-        
-        @media (max-width: 768px) {
-            .role-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .role-container {
-                padding: 20px;
-            }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+        .password-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .password-container input {
+            flex: 1;
+        }
+        .password-container button {
+            position: absolute;
+            right: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: black;
+        }
+        .remember-me {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+        }
+        .login-btn {
+            width: 100%;
+            padding: 10px;
+            background: orange;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .footer-links {
+            margin-top: 10px;
+            font-size: 12px;
+        }
+        .footer-links a {
+            color: white;
+            margin: 0 5px;
         }
     </style>
 </head>
 <body>
-    <div class="role-container">
-        <div class="logo">
-            <h1>MMS</h1>
-            <h2>Select Your Role</h2>
-        </div>
-
-        <div class="role-grid">
-            <div class="role-card" onclick="selectRole('admin')">
-                <div class="role-icon">
-                    <i class="fas fa-user-shield"></i>
+    <div class="login-container">
+        <div class="login-box">
+            <img src="logo.png" alt="MIT WPU Logo" class="logo">
+            <h2>Welcome to My MIT WPU</h2>
+            <form>
+                <label for="username">User Name</label>
+                <input type="text" id="username" placeholder="Enter a valid user name">
+                
+                <label for="password">Password</label>
+                <div class="password-container">
+                    <input type="password" id="password" placeholder="Enter password">
+                    <button type="button" id="togglePassword">👁</button>
                 </div>
-                <div class="role-title">Admin</div>
-                <div class="role-description">System administration and oversight</div>
-            </div>
-
-            <div class="role-card" onclick="selectRole('mentor')">
-                <div class="role-icon">
-                    <i class="fas fa-chalkboard-teacher"></i>
+                
+                <div class="remember-me">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Remember me</label>
+                    <a href="#" class="forgot-password">Forgot Password?</a>
                 </div>
-                <div class="role-title">Mentor</div>
-                <div class="role-description">Guide and support mentees</div>
-            </div>
-
-            <div class="role-card" onclick="selectRole('mentee')">
-                <div class="role-icon">
-                    <i class="fas fa-user-graduate"></i>
-                </div>
-                <div class="role-title">Mentee</div>
-                <div class="role-description">Learn and grow with guidance</div>
+                
+                <button type="submit" class="login-btn">LOGIN</button>
+            </form>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Conditions</a>
             </div>
         </div>
     </div>
-
-    <script src="js/sample-data.js"></script>
-    <script src="js/main.js"></script>
     <script>
-        function selectRole(role) {
-            // Get the corresponding user from sample data
-            const users = JSON.parse(localStorage.getItem('users'));
-            const user = users.find(u => u.role === role);
-            
-            if (user) {
-                // Store the current user in localStorage
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                
-                // Create a login activity log
-                const activityLogs = JSON.parse(localStorage.getItem('activity_logs')) || [];
-                activityLogs.push({
-                    log_id: activityLogs.length + 1,
-                    user_id: user.unique_user_no,
-                    activity: `Logged in as ${role}`,
-                    log_time: new Date().toISOString(),
-                    ip_address: '192.168.0.1',
-                    last_login: new Date().toISOString()
-                });
-                localStorage.setItem('activity_logs', JSON.stringify(activityLogs));
-                
-                // Redirect to appropriate dashboard
-                switch(role) {
-                    case 'admin':
-                        window.location.href = 'admin-dashboard.html';
-                        break;
-                    case 'mentor':
-                        window.location.href = 'mentor-dashboard.html';
-                        break;
-                    case 'mentee':
-                        window.location.href = 'mentee-dashboard.html';
-                        break;
-                }
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordField = document.getElementById('password');
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+            } else {
+                passwordField.type = 'password';
             }
-        }
+        });
     </script>
 </body>
 </html>

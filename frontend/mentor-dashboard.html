@@ -214,7 +214,6 @@
             background-color: var(--orange-light);
         }
         
-        /* Badge styles */
         .badge {
             padding: 4px 8px;
             border-radius: 12px;
@@ -230,7 +229,6 @@
         .badge-warning { background-color: #FF9800; }
         .badge-danger { background-color: #F44336; }
         
-        /* Tabs for mentee details */
         .tabs {
             display: flex;
             border-bottom: 1px solid #ddd;
@@ -281,9 +279,7 @@
     </style>
 </head>
 <body class="dashboard-layout">
-    <!-- Include navigation component -->
     <div id="navigation-container"></div>
-
     <main class="dashboard-main">
         <header class="dashboard-header">
             <div class="header-left">
@@ -295,103 +291,39 @@
             </div>
             <div class="header-right">
                 <div class="date-time">
-                    <div class="date-box">
-                        <i class="fas fa-calendar"></i>
-                        <span id="current-date"></span>
-                    </div>
-                    <div class="time-box">
-                        <i class="fas fa-clock"></i>
-                        <span id="current-time"></span>
-                    </div>
+                    <div class="date-box"><i class="fas fa-calendar"></i><span id="current-date"></span></div>
+                    <div class="time-box"><i class="fas fa-clock"></i><span id="current-time"></span></div>
                 </div>
             </div>
         </header>
-
         <div class="dashboard-content">
-            <!-- Quick Stats -->
             <section class="stats-section">
                 <div class="stats-grid">
-                    <div class="stat-card primary">
-                        <div class="stat-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="stat-content">
-                            <h3>Total Mentees</h3>
-                            <div class="stat-number" id="total-mentees">0</div>
-                        </div>
-                    </div>
-                    <div class="stat-card success">
-                        <div class="stat-icon">
-                            <i class="fas fa-tasks"></i>
-                        </div>
-                        <div class="stat-content">
-                            <h3>Active Tasks</h3>
-                            <div class="stat-number" id="active-tasks">0</div>
-                        </div>
-                    </div>
-                    <div class="stat-card info">
-                        <div class="stat-icon">
-                            <i class="fas fa-calendar-check"></i>
-                        </div>
-                        <div class="stat-content">
-                            <h3>Upcoming Meetings</h3>
-                            <div class="stat-number" id="upcoming-meetings">0</div>
-                        </div>
-                    </div>
-                    <div class="stat-card warning">
-                        <div class="stat-icon">
-                            <i class="fas fa-bell"></i>
-                        </div>
-                        <div class="stat-content">
-                            <h3>Pending Actions</h3>
-                            <div class="stat-number" id="pending-actions">0</div>
-                        </div>
-                    </div>
+                    <div class="stat-card primary"><i class="fas fa-users"></i><h3>Total Mentees</h3><div id="total-mentees">3</div></div>
+                    <div class="stat-card success"><i class="fas fa-tasks"></i><h3>Active Tasks</h3><div id="active-tasks">3</div></div>
+                    <div class="stat-card info"><i class="fas fa-calendar-check"></i><h3>Upcoming Meetings</h3><div id="upcoming-meetings">1</div></div>
+                    <div class="stat-card warning"><i class="fas fa-bell"></i><h3>Pending Actions</h3><div id="pending-actions">4</div></div>
                 </div>
             </section>
-
-            <!-- Main Dashboard Grid -->
             <div class="dashboard-grid">
-                <!-- Mentee List -->
-                <section class="dashboard-section mentee-list">
+                <section class="dashboard-section">
                     <div class="section-header">
                         <h2>My Mentees</h2>
                         <div class="filter-controls">
-                            <select id="mentee-filter" class="select-filter">
-                                <option value="all">All Mentees</option>
-                                <option value="excellent">Excellent</option>
-                                <option value="good">Good</option>
-                                <option value="average">Average</option>
-                                <option value="poor">Poor</option>
-                            </select>
-                            <button class="btn-primary" id="add-mentee">
-                                <i class="fas fa-plus"></i> Add Mentee
-                            </button>
+                            <select id="mentee-filter"><option value="all">All</option><option value="excellent">Excellent</option></select>
+                            <button id="add-mentee" class="btn-primary"><i class="fas fa-plus"></i> Add Mentee</button>
                         </div>
                     </div>
-                    <div class="mentee-grid scrollable" id="mentee-list"></div>
+                    <div id="mentee-list" class="scrollable"></div>
                 </section>
-
-                <!-- Task Management -->
-                <section class="dashboard-section task-management">
+                <section class="dashboard-section">
                     <div class="section-header">
                         <h2>Task Management</h2>
-                        <div class="section-actions">
-                            <select id="task-filter" class="filter-select">
-                                <option value="all">All Tasks</option>
-                                <option value="pending">Pending</option>
-                                <option value="in-progress">In Progress</option>
-                                <option value="completed">Completed</option>
-                            </select>
-                            <button class="btn-primary" id="create-task">
-                                <i class="fas fa-plus"></i> New Task
-                            </button>
-                        </div>
+                        <select id="task-filter"><option value="all">All Tasks</option></select>
+                        <button id="create-task" class="btn-primary"><i class="fas fa-plus"></i> New Task</button>
                     </div>
-                    <div class="task-list scrollable" id="task-list"></div>
+                    <div id="task-list" class="scrollable"></div>
                 </section>
-
-                <!-- Progress Tracking -->
                 <section class="dashboard-section progress-tracking">
                     <div class="section-header">
                         <h2>Progress Overview</h2>
@@ -406,7 +338,6 @@
                     </div>
                 </section>
 
-                <!-- Upcoming Meetings -->
                 <section class="dashboard-section meetings">
                     <div class="section-header">
                         <h2>Upcoming Meetings</h2>
@@ -417,7 +348,6 @@
                     <div class="meeting-list scrollable" id="meeting-list"></div>
                 </section>
 
-                <!-- Recent Communications -->
                 <section class="dashboard-section communications">
                     <div class="section-header">
                         <h2>Recent Communications</h2>
@@ -428,299 +358,17 @@
                     <div class="communication-list scrollable" id="communication-list"></div>
                 </section>
 
-                <!-- Emergency Alerts -->
                 <section class="dashboard-section emergency-alerts">
                     <div class="section-header">
                         <h2>Emergency Alerts</h2>
                     </div>
                     <div class="alert-list scrollable" id="alert-list">
-                        <!-- Alert items will be added here by JavaScript -->
                     </div>
                 </section>
             </div>
         </div>
     </main>
-
-    <!-- Modals -->
-    <div class="modal" id="mentee-details-modal">
-        <div class="modal-content modal-lg">
-            <div class="modal-header">
-                <h2>Mentee Details</h2>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="mentee-profile">
-                    <div class="mentee-profile-header">
-                        <div class="profile-avatar">
-                            <i class="fas fa-user-graduate fa-3x"></i>
-                        </div>
-                        <div class="profile-info">
-                            <h3 id="profile-name"></h3>
-                            <p id="profile-course"></p>
-                            <div class="profile-badges">
-                                <span class="badge badge-primary" id="profile-year"></span>
-                                <span class="badge" id="profile-status"></span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="tabs">
-                        <div class="tab-item active" data-tab="academic">Academic Information</div>
-                        <div class="tab-item" data-tab="achievements">Achievements</div>
-                        <div class="tab-item" data-tab="communications">Communications</div>
-                        <div class="tab-item" data-tab="meetings">Meetings</div>
-                    </div>
-                    
-                    <div id="academic" class="tab-content active">
-                        <div class="academic-stats">
-                            <div class="stat-box">
-                                <h4>Attendance</h4>
-                                <div class="progress-bar-container">
-                                    <div class="progress-bar" id="attendance-bar"></div>
-                                </div>
-                                <p id="attendance-value"></p>
-                            </div>
-                            <div class="stat-box">
-                                <h4>Academic Background</h4>
-                                <p id="academic-background"></p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div id="achievements" class="tab-content">
-                        <div class="achievement-list" id="mentee-achievements">
-                            <!-- Achievements will be populated by JavaScript -->
-                        </div>
-                        <div class="achievement-actions">
-                            <button class="btn-primary" id="award-achievement">
-                                <i class="fas fa-trophy"></i> Award New Achievement
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div id="communications" class="tab-content">
-                        <div class="communication-list" id="mentee-communications">
-                            <!-- Communications will be populated by JavaScript -->
-                        </div>
-                        <div class="communication-actions">
-                            <button class="btn-primary" id="send-message">
-                                <i class="fas fa-paper-plane"></i> Send Message
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div id="meetings" class="tab-content">
-                        <div class="meeting-list" id="mentee-meetings">
-                            <!-- Meetings will be populated by JavaScript -->
-                        </div>
-                        <div class="meeting-actions">
-                            <button class="btn-primary" id="schedule-mentee-meeting">
-                                <i class="fas fa-calendar-plus"></i> Schedule Meeting
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-secondary" onclick="closeModal('mentee-details-modal')">Close</button>
-                <button class="btn-primary" id="save-mentee-details">Save Changes</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="task-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Create New Task</h2>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="task-form">
-                    <div class="form-group">
-                        <label for="task-title">Task Title</label>
-                        <input type="text" id="task-title" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="task-description">Description</label>
-                        <textarea id="task-description" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="task-mentee">Assign to Mentee</label>
-                        <select id="task-mentee" required></select>
-                    </div>
-                    <div class="form-group">
-                        <label for="task-deadline">Deadline</label>
-                        <input type="date" id="task-deadline" required>
-                    </div>
-                    <div class="form-actions">
-                        <button type="button" class="btn-secondary" onclick="closeModal('task-modal')">Cancel</button>
-                        <button type="submit" class="btn-primary">Create Task</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="meeting-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Schedule Meeting</h2>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="meeting-form">
-                    <div class="form-group">
-                        <label for="meeting-title">Meeting Title</label>
-                        <input type="text" id="meeting-title" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="meeting-mentee">Select Mentee</label>
-                        <select id="meeting-mentee" required></select>
-                    </div>
-                    <div class="form-group">
-                        <label for="meeting-date">Date</label>
-                        <input type="date" id="meeting-date" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="meeting-time">Time</label>
-                        <input type="time" id="meeting-time" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="meeting-agenda">Agenda</label>
-                        <textarea id="meeting-agenda" required></textarea>
-                    </div>
-                    <div class="form-actions">
-                        <button type="button" class="btn-secondary" onclick="closeModal('meeting-modal')">Cancel</button>
-                        <button type="submit" class="btn-primary">Schedule Meeting</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="message-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>New Message</h2>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="message-form">
-                    <div class="form-group">
-                        <label for="message-recipient">Recipient</label>
-                        <select id="message-recipient" required></select>
-                    </div>
-                    <div class="form-group">
-                        <label for="message-type">Message Type</label>
-                        <select id="message-type" required>
-                            <option value="one-to-one">Direct Message</option>
-                            <option value="feedback">Feedback</option>
-                            <option value="announcement">Announcement</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="message-content">Message</label>
-                        <textarea id="message-content" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="message-attachment">Attachment (optional)</label>
-                        <input type="file" id="message-attachment">
-                    </div>
-                    <div class="form-actions">
-                        <button type="button" class="btn-secondary" onclick="closeModal('message-modal')">Cancel</button>
-                        <button type="submit" class="btn-primary">Send Message</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="achievement-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Award Achievement</h2>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="achievement-form">
-                    <div class="form-group">
-                        <label for="achievement-mentee">Mentee</label>
-                        <select id="achievement-mentee" required></select>
-                    </div>
-                    <div class="form-group">
-                        <label for="achievement-title">Achievement Title</label>
-                        <input type="text" id="achievement-title" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="achievement-description">Description</label>
-                        <textarea id="achievement-description" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="achievement-badge">Select Badge</label>
-                        <div class="badge-selection" id="badge-options">
-                            <!-- Badge options will be populated by JavaScript -->
-                        </div>
-                    </div>
-                    <div class="form-actions">
-                        <button type="button" class="btn-secondary" onclick="closeModal('achievement-modal')">Cancel</button>
-                        <button type="submit" class="btn-primary">Award Achievement</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
     <script src="js/navigation.js"></script>
-    <script src="js/dashboard-styles.js"></script>
     <script src="js/mentor-dashboard.js"></script>
-    <script>
-        // Tab functionality
-        document.querySelectorAll('.tab-item').forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Remove active class from all tabs
-                document.querySelectorAll('.tab-item').forEach(t => {
-                    t.classList.remove('active');
-                });
-                
-                // Remove active class from all tab contents
-                document.querySelectorAll('.tab-content').forEach(c => {
-                    c.classList.remove('active');
-                });
-                
-                // Add active class to clicked tab
-                tab.classList.add('active');
-                
-                // Show corresponding tab content
-                const tabId = tab.getAttribute('data-tab');
-                document.getElementById(tabId).classList.add('active');
-            });
-        });
-        
-        // Modal functionality
-        function openModal(modalId) {
-            document.getElementById(modalId).style.display = 'flex';
-        }
-        
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-        
-        // Close modal when clicking on close button
-        document.querySelectorAll('.close-modal').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const modal = e.target.closest('.modal');
-                closeModal(modal.id);
-            });
-        });
-        
-        // Close modal when clicking outside the modal content
-        document.querySelectorAll('.modal').forEach(modal => {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    closeModal(modal.id);
-                }
-            });
-        });
-    </script>
 </body>
 </html>
